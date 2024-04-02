@@ -543,4 +543,89 @@ Counts for the samples in all the consensus peakset are output as a tabular file
 
 ## Load and explore the dataset
 
-## Save the dataset
+In order to speed up the computations and keep memory usage low, we have subset the dataset only to chromosome 12. It will be interesting to see if we can recapitulate similar analyses by looking only to one chromosome 🤓
+
+Data are in this public Google Drive [folder](https://drive.google.com/drive/folders/1-9yQESQn3JOvP9jqoWcqfgOZyqAC5M6J?usp=sharing). You will find:
+
+1.  `raw_counts_chr12.matrix`: the peak by sample matrix containing the number of reads detected for each peak in each sample.
+2.  `colData.txt`: a tabular file containing our metadata related to columns of the count table, which contains different info about our samples (e.g. the treatment, the sample origin, etc.).
+3.  `peakset.bed`: a BED file with the chromosome locations of all the consensus peakset.
+4.  `recurrence_chr12.matrix`: this is a table where you can find if any of the regions that constitute the consensus peakset is also called as peak in each separate sample. Remember that when a consensus peakset is created, usually genomic intervals called ad peaks in at least 2 out of all the samples are kept in the consensus, and you might find also intervals that are called in 3 or in all the samples. It might be interesting to check how the data are distributed.
+5.  `dba_Korg_Ntissue_homer_annot.txt`: this file contains information about the annotation of each consensus peakset to the nearest gene TSS. You will understand later its usage.
+6.  `Korg_UP_regions_results.txt` and `Ncr_UP_regions_results.txt`: these files store the differential analysis results for the entire peakset and we will need them on day 3 to perform downstream functional analyses.
+
+Open the folder through Google Drive, check the presence of the files in the browser and THEN run the code below.
+
+> After you run the code below, look into your `R` console and check if you are prompted to insert your Google account information. Do so and then follow the instructions to connect to your Google account in order to download the data from the shared folder!
+
+```{r}
+# Load installed packages with the "library()" function
+library(dplyr)
+library(googledrive)
+
+# Load files
+files <- drive_ls(path="MOBW2024_uploadata")
+
+# File paths with URL
+counts <- files[files$name == "raw_counts_chr12.matrix",] %>% drive_read_string() %>% read.table(text = ., sep="\t") %>% as.data.frame()
+
+samples <- files[files$name == "colData.txt",] %>% drive_read_string() %>% read.table(text = ., sep="\t") %>% as.data.frame()
+
+```
+
+We can now explore the data that we have just loaded in the current R session to familiarize with it.
+
+```{r, eval=FALSE}
+# Check out the counts
+head(counts, 10)
+```
+
+```{r, echo=FALSE}
+# Check out the counts
+head(counts, 10) %>% kbl() %>% kable_styling()
+```
+
+We can then check the shape of our counts table (i.e. how many different peaks we are detecting and how many different samples?)
+
+```{r}
+# How many rows and columns does our count table have?
+dim(counts)
+```
+
+
+We can see that our table contains count information for `r dim(counts)[1]` peaks and `r dim(counts)[2]` samples. 
+
+We can also inspect the **metadata** from the samples which is stored in the `samples` variable we created above.
+
+```{r, eval=FALSE}
+# What does the table look like?
+samples
+```
+
+```{r, echo=FALSE}
+# What does the table look like?
+samples %>% kbl() %>% kable_styling()
+```
+
+```{r}
+# What is the shape of this samples table?
+dim(samples)
+```
+
+In this case, this `samples` table has as many rows (`r nrow(samples)`) as there are samples (which in turn is equal to the number of columns in the `counts` table), with columns containing different types of information related to each of the samples in the analysis. 
+
+
+## Saving/Loading Files
+**Let's save this object with samples information in a file on this cloud session**, this might be needed later if we end up in some trouble with the `R` session! This is a file format where columns are separated by commas. You might be familiar with this format if you have worked quite a bit in Excel. In `R`, we can save tabular data with the `write.table()` function specifying the location (the file name) we want. This is **useful in the case our `R` session dies or we decide to interrupt it**. In this case we will not have to run the whole analysis from the beginning and we can just source the file and load it!
+
+```{r, eval=FALSE}
+write.table(samples, "samples_table.csv", sep = ",", quote = FALSE)
+```
+
+We can **load the object back into the current session** by using the following code line:
+
+```{r, eval=FALSE}
+samples <- read.table("samples_table.csv", sep = ",")
+```
+
+> **We will also repeat this procedure with the results of the differential expression analysis in order to avoid repeating work we have already done in case of any trouble!**
