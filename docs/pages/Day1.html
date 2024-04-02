@@ -159,8 +159,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#objectives" id="toc-objectives" class="nav-link active" data-scroll-target="#objectives">Objectives</a>
-  <ul class="collapse">
+  <li><a href="#objectives" id="toc-objectives" class="nav-link active" data-scroll-target="#objectives">Objectives</a></li>
+  <li><a href="#omics-experiments" id="toc-omics-experiments" class="nav-link" data-scroll-target="#omics-experiments"><em>Omics</em> experiments</a></li>
   <li><a href="#the-chip-seq-technology" id="toc-the-chip-seq-technology" class="nav-link" data-scroll-target="#the-chip-seq-technology">The ChIP-seq technology</a></li>
   <li><a href="#tips-for-designing-a-chip-seq-experiment" id="toc-tips-for-designing-a-chip-seq-experiment" class="nav-link" data-scroll-target="#tips-for-designing-a-chip-seq-experiment">Tips for designing a ChIP-seq experiment</a></li>
   <li><a href="#next-generation-sequencing" id="toc-next-generation-sequencing" class="nav-link" data-scroll-target="#next-generation-sequencing">Next Generation Sequencing</a></li>
@@ -178,26 +178,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#create-an-rscript" id="toc-create-an-rscript" class="nav-link" data-scroll-target="#create-an-rscript">Create an Rscript</a></li>
   <li><a href="#install-the-packages" id="toc-install-the-packages" class="nav-link" data-scroll-target="#install-the-packages">Install the packages</a></li>
-  <li><a href="#the-basics-of-chip-seq-data-core-processing" id="toc-the-basics-of-chip-seq-data-core-processing" class="nav-link" data-scroll-target="#the-basics-of-chip-seq-data-core-processing">The basics of ChIP-seq data <em>core</em> processing</a>
+  <li><a href="#the-basics-of-chip-seq-data-processing" id="toc-the-basics-of-chip-seq-data-processing" class="nav-link" data-scroll-target="#the-basics-of-chip-seq-data-processing">The basics of ChIP-seq data processing</a>
   <ul class="collapse">
   <li><a href="#raw-sequencing-output" id="toc-raw-sequencing-output" class="nav-link" data-scroll-target="#raw-sequencing-output">Raw Sequencing Output</a></li>
-  </ul></li>
-  <li><a href="#quality-metrics-inspection" id="toc-quality-metrics-inspection" class="nav-link" data-scroll-target="#quality-metrics-inspection">Quality Metrics Inspection</a></li>
-  <li><a href="#read-alignment" id="toc-read-alignment" class="nav-link" data-scroll-target="#read-alignment">Read alignment</a>
-  <ul class="collapse">
-  <li><a href="#the-bam-file" id="toc-the-bam-file" class="nav-link" data-scroll-target="#the-bam-file">The BAM file</a></li>
-  </ul></li>
+  <li><a href="#quality-metrics-inspection" id="toc-quality-metrics-inspection" class="nav-link" data-scroll-target="#quality-metrics-inspection">Quality metrics inspection</a></li>
+  <li><a href="#read-alignment" id="toc-read-alignment" class="nav-link" data-scroll-target="#read-alignment">Read alignment</a></li>
   <li><a href="#peak-calling" id="toc-peak-calling" class="nav-link" data-scroll-target="#peak-calling">Peak calling</a></li>
-  <li><a href="#broad-vs.-narrow-peaks" id="toc-broad-vs.-narrow-peaks" class="nav-link" data-scroll-target="#broad-vs.-narrow-peaks">Broad vs.&nbsp;narrow peaks</a></li>
-  <li><a href="#bed-and-bigwig-file-formats" id="toc-bed-and-bigwig-file-formats" class="nav-link" data-scroll-target="#bed-and-bigwig-file-formats">BED and BigWig file formats</a></li>
-  <li><a href="#collapse-data-into-a-single-dataset" id="toc-collapse-data-into-a-single-dataset" class="nav-link" data-scroll-target="#collapse-data-into-a-single-dataset">Collapse data into a single dataset</a>
-  <ul class="collapse">
+  <li><a href="#collapse-data-into-a-single-dataset" id="toc-collapse-data-into-a-single-dataset" class="nav-link" data-scroll-target="#collapse-data-into-a-single-dataset">Collapse data into a single dataset</a></li>
   <li><a href="#counting-reads-in-consensus-peaks" id="toc-counting-reads-in-consensus-peaks" class="nav-link" data-scroll-target="#counting-reads-in-consensus-peaks">Counting reads in consensus peaks</a></li>
   </ul></li>
-  <li><a href="#the-study" id="toc-the-study" class="nav-link" data-scroll-target="#the-study">The study</a></li>
+  <li><a href="#the-tested-dataset" id="toc-the-tested-dataset" class="nav-link" data-scroll-target="#the-tested-dataset">The tested dataset</a></li>
   <li><a href="#load-and-explore-the-dataset" id="toc-load-and-explore-the-dataset" class="nav-link" data-scroll-target="#load-and-explore-the-dataset">Load and explore the dataset</a></li>
   <li><a href="#savingloading-files" id="toc-savingloading-files" class="nav-link" data-scroll-target="#savingloading-files">Saving/Loading Files</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -227,27 +219,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.col pre { background-color:lightpink; }
 div.col pre.r { background-color:white; }
 </style>
-<section id="objectives" class="level1">
-<h1>Objectives</h1>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
 <ul>
 <li>Introduction to ChIP-seq</li>
 <li>Setting up R environment</li>
 <li>Understanding ChIP-seq (and NGS) data <em>core</em> processing</li>
 <li>Dataset introduction and exploration</li>
 </ul>
+</section>
+<section id="omics-experiments" class="level2">
+<h2 class="anchored" data-anchor-id="omics-experiments"><em>Omics</em> experiments</h2>
+<p>‘Omics’ as disciplines <strong>work to</strong> <strong>answer questions</strong> regarding specific ‘omes’. These questions are enabled by omics experiments; in most cases, these will be <strong>sequencing- or mass-spectrometry based</strong>.</p>
+<p>The identification of a suitable model, types and numbers of samples, the process of extraction and purification of our target ‘ome’, and finally its reformulation into a sequenceable product, i.e.&nbsp;<strong>a <em>library</em></strong>, <strong>shape the final bioinformatic dataset</strong> and <strong>place limits on the possible questions</strong> we will be able to ask of it.</p>
+<blockquote class="blockquote">
+<p>For example, in the case of RNA-seq, phenol-based extraction and precipitation will yield results that are not always comparable with total RNA extraction with a spin column. Even more, the contingent decision to perform ribodepletion or enrichment for polyadenylated transcript will have an impact even on simple gene expression analyses.</p>
+</blockquote>
+<p>Summing up, an Omics experiment is designed starting from a question, selecting the sample(s), wet lab procedure and library preparations that will enable the most truthful, informative dataset to be built.</p>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../pics/the_omics_design.png" class="img-fluid figure-img"></p>
+<figcaption><strong>Designing Omics experiments: from question to dataset</strong></figcaption>
+</figure>
+</div>
+</center>
+</section>
 <section id="the-chip-seq-technology" class="level2">
 <h2 class="anchored" data-anchor-id="the-chip-seq-technology">The ChIP-seq technology</h2>
-<p>Chromatin immunoprecipitation (ChIP) assays are used to <strong>analyze protein interactions with DNA</strong>. By combining this method with Next Generation Sequencing, ChIP-sequencing (ChIP-seq) is a powerful method for identifying genome-wide the chromosomal locations of different kinds of proteins, including transcription factors, nucleosomes, chromatin remodeling enzymes and polymerases, and also histone modifications.</p>
+<p>In this context, we chose to deal with a Chromatin Immuno-precipitation (ChIP from now on) assay.&nbsp;</p>
+<p>Suppose you have found an interesting, new histone variant, and managed to produce a strong antibody against it. You want to know where it's located in the genome of your cells of interest (say, tumor cells), to start deducing its function.</p>
+<p>ChIP, coupled to sequencing (ChIP-seq), allows you to approach the question, <strong>genome-wide</strong>.</p>
+<p>It works by extracting chromatin (DNA bound to protein), fragmenting it, and selecting the protein or protein variant of interest from this complex mixture with an antibody in some way specific for it. The subset of genome you will have isolated will constitute the sequences you expect your variant to bind, informing your inferences regarding its function.</p>
 <blockquote class="blockquote">
-<p>ChIP-seq use in mapping histone modifications has been seminal in epigenetics research! (Ku et al., <a href="https://pubmed.ncbi.nlm.nih.gov/21825079/">2011</a>)</p>
+<p>ChIP-seq use in mapping histone modifications has been seminal in epigenetics research! (Ku et al., <a href="[https://pubmed.ncbi.nlm.nih.gov/21825079/">2011</a>)](https://pubmed.ncbi.nlm.nih.gov/21825079/)))</p>
 </blockquote>
-<p>The standard ChIP-seq protocol first <strong>cross-link bound proteins to chromatin, fragments the chromatin, captures the DNA fragments bound to one protein using an antibody specific to it, and sequences the ends of the captured fragments using NGS</strong>. Here you can see the major steps:</p>
+<p>Here you can see a recap of the major steps:</p>
 <pre><code>+ Cross-linking: add Formaldehyde
-+ Hydrolysis (breakdown of cell memberane)
-+ Lyses of DNA fragments (shearing), e.g. treat with specific endonuclease enzymes (dpn1)
-+ Add specific antibody (with beads) against the protein of interest. This will drag the protein down by immuno-precipitation
-+ Separate DNA from the protein (unlinking), and purify the DNA
-+ DNA fragments are amplified and fluorescently tagged, library construction, and fragments are then sequenced</code></pre>
+
++ Cell lysis (breakdown of cell membranes)
+
++ Fragmentation of DNA fragments (shearing), e.g. digestion with specific endonuclease enzymes (dpn1) or sonication
+
++ Addition of specific bead-coupled antibody against the protein of interest, separating it from the mixture
+
++ Separate DNA from the protein (reverse cross-linking), and DNA purification
+
++ DNA fragment amplification, library construction
+
++ Library sequencing by NGS (essentially Illumina)</code></pre>
 <center>
 <div>
 <p><img src="https://www.creativebiomart.net/epigenetics/wp-content/themes/epigenetics/upload/images/1-6-1-1-2-Transcription-Factor-ChIP-Seq-1.jpg" width="500"></p>
@@ -256,19 +276,20 @@ div.col pre.r { background-color:white; }
 </section>
 <section id="tips-for-designing-a-chip-seq-experiment" class="level2">
 <h2 class="anchored" data-anchor-id="tips-for-designing-a-chip-seq-experiment">Tips for designing a ChIP-seq experiment</h2>
-<p>A common goal in ChIP-seq experiments is to <strong>identify changes in protein binding patterns</strong> between conditions (i.e.&nbsp;differential binding).</p>
-<p>Effective analysis of ChIP-seq data requires sufficient coverage by sequence reads (sequencing depth). It mainly depends on the size of the genome, and the number and size of the binding sites of the protein.</p>
+<p>Besides characterizing binding patterns in general, a common goal in ChIP-seq experiments is to <strong>identify changes in protein binding patterns</strong> between conditions, an application known as differential binding.</p>
+<p>Effective analysis of ChIP-seq data requires sufficient coverage by sequence reads (<strong>sequencing depth</strong>). It mainly depends on the size of the genome, and the number and size of the binding sites of the protein.</p>
 <ul>
-<li><p>For mammalian transcription factors (TFs) and chromatin modifications such as enhancer-associated histone marks: <strong>20 million reads</strong> are adequate</p></li>
-<li><p>Proteins with more binding sites (e.g., RNA Pol II) or broader factors: need more reads, up to <strong>60 million</strong> for mammalian ChIP-seq</p></li>
-<li><p>Sequencing depth rules of thumb: &gt;10M reads for <em>narrow</em> peaks, &gt;20M for <em>broad</em> peaks</p></li>
-<li><p>Long &amp; paired-end reads useful but not essential</p></li>
-<li><p>Replicates: The good news here is that, unlike RNA-Seq, more than 2 replicates does not significantly increase the number of targets</p></li>
+<li><p>For mammalian (or any species with a relatively large genome) transcription factors (TFs) and chromatin modifications such as enhancer-associated histone marks: <strong>20 million reads</strong> are adequate</p></li>
+<li><p>Proteins with more binding sites (e.g., RNA Pol II) or more promiscuous factors (e.g.&nbsp;CTCF) need more reads, up to <strong>60 million</strong> for mammalian ChIP-seq</p></li>
+<li><p>Sequencing depth rules of thumb: &gt;10M reads for <em>narrow</em> peaks, &gt;20M for <em>broad</em> peaks (you will understand better this concept later in the Peak Calling section)</p></li>
+<li><p>Long &amp; paired-end reads are useful, but not essential - they may however help in specific, high-precision binding site discovery</p></li>
+<li><p>Replicates: Unlike with RNA-Seq, more than two replicates do not significantly increase the number of identified peaks</p></li>
 </ul>
-<p>A successful ChIP-seq experiment must have its right <strong>controls</strong>: they are essential to eliminate false positives as there is always some signal on open chromatin. Two types of controls are often used:</p>
+<p>A successful ChIP-seq experiment must have the appropriate <strong>controls</strong> to optimize signal-noise ratio. Well-made controls help eliminate false positives. In fact, there is always some signal on open chromatin. This may be due to multiple factors, but can be boiled down to three reasons: A) non-specific binding from the antibody can precipitate random sequences B) digestion, sonication, or any other method of shearing will introduce biases towards certain sequences C) different operators will perform the same protocol slightly differently, yielding higher or lower signal/noise ratios. The following controls are often used to abate these biases:</p>
 <ul>
-<li><p>An “<strong>input</strong>” DNA sample (fragmented genomic DNA), the one that has been cross-linked and sonicated but not immuno-precipitated</p></li>
-<li><p>An <strong>IgG</strong> “mock”-ChIP, using an antibody that will not bind to nuclear proteins and should generate random immuno-precipitated DNA.</p></li>
+<li><p>An “<strong>input</strong>” DNA sample in which a library is generated from DNA that has been cross-linked and sonicated but not immuno-precipitated. It controls for the <strong>bias introduced before even immunoprecipitating</strong>, i.e.&nbsp;from sonication.</p></li>
+<li><p>An <strong>IgG</strong> “mock”-ChIP, using an antibody that will not bind to nuclear proteins and should generate random immuno-precipitated DNA. It controls for <strong>non-specific sequences</strong> that precipitate alongside the target protein, but are not bound by it.</p></li>
+<li><p>A <strong>Spike-In</strong> can also be introduced, using different genomes (e.g.&nbsp;Drosophila in a Human experiment) to control for handling <strong>variability</strong> between users, or batch differences between reagents. This helps dampen these confounders.</p></li>
 </ul>
 <blockquote class="blockquote">
 <p>Input DNA control is ideal in most of the cases. Indeed, one problem with IgG control is that if too little DNA is recovered after immuno-precipitation, sequencing library will be of low complexity and binding sites identified using this control could be biased. Read <a href="https://www.biostars.org/p/15817/">this biostars post</a> for discussion.</p>
@@ -276,7 +297,7 @@ div.col pre.r { background-color:white; }
 </section>
 <section id="next-generation-sequencing" class="level2">
 <h2 class="anchored" data-anchor-id="next-generation-sequencing">Next Generation Sequencing</h2>
-<p>NGS technologies (Illumina/PacBio) allow the processing of millions of reactions in parallel, resulting in high-throughput, higher sensitivity, speed and reduced cost compared to first generation sequencing technologies (e.g., Sanger method).</p>
+<p>NGS technologies (Illumina/PacBio/Ultima/BGI) allow the processing of millions of synthesis reactions <strong>in parallel</strong>, resulting in high throughput, higher sensitivity, speed and reduced cost compared to first generation sequencing technologies (e.g., Sanger method).</p>
 <blockquote class="blockquote">
 <p>Given the vast amounts of quantitative sequencing data generated, NGS-based methods rely on resource-intensive <strong>data processing pipelines</strong> to analyze data.</p>
 </blockquote>
@@ -287,6 +308,9 @@ div.col pre.r { background-color:white; }
 <div>
 <p><img src="https://efsa.onlinelibrary.wiley.com/cms/asset/3d005e92-0c1d-498a-b8d1-8796597dc74c/efs2e16086-fig-0004-m.jpg" width="500"></p>
 </div>
+<blockquote class="blockquote">
+<p><strong>With this wealth of insights about the experiment at hand, we can now move forward to obtain the necessary equipment for analyzing this type of data effectively.</strong> 😎</p>
+</blockquote>
 </center></section>
 <section id="setting-up-rstudio" class="level2">
 <h2 class="anchored" data-anchor-id="setting-up-rstudio">Setting up Rstudio</h2>
@@ -296,7 +320,7 @@ div.col pre.r { background-color:white; }
 <li>Install <code>R</code> and RStudio on your machine</li>
 <li>Run RStudio in a browser using RStudio Cloud.</li>
 </ol>
-<p>Note that the first option will require a bit more time and effort. To get started with RStudio Cloud (noew Posit Cloud), click on <a href="https://posit.cloud/plans/free">this link</a> and create a Posit free account. Once you completed your registration, you are redirected to <code>Your Workspace</code>. To start a new R project, you can click on <code>New Project &gt; New RStudio Project</code>. This will open RStudio on the Cloud.</p>
+<p>Note that the first option will require a bit more time and effort. To get started with RStudio Cloud (now Posit Cloud), click on <a href="https://posit.cloud/plans/free">this link</a> and create a Posit free account. Once you completed your registration, you are redirected to <code>Your Workspace</code>. To start a new R project, you can click on <code>New Project &gt; New RStudio Project</code>. This will open RStudio on the Cloud.</p>
 </section>
 <section id="the-rstudio-interface" class="level2">
 <h2 class="anchored" data-anchor-id="the-rstudio-interface">The RStudio Interface</h2>
@@ -307,17 +331,17 @@ div.col pre.r { background-color:white; }
 <p>The RStudio interface is composed of <em>quadrants</em>:</p>
 <ol type="1">
 <li><p>The <code>Console</code> window: located in the bottom-left, it’s where you will find the output of your coding, and it’s also possible to type <code>R</code> code <em>interactively</em> on the console.</p></li>
-<li><p>The <code>Files / Plots / Packages / Help / Viewer</code> window: located in the bototm-right, it currently displays your <strong>current file system</strong> (on the Cloud), which is pointed to the position where your <code>Rproject</code> you just created lives.</p>
+<li><p>The <code>Files / Plots / Packages / Help / Viewer</code> window: located in the bottom-right, it displays your <strong>current file system</strong> (on the Cloud), which is pointed to the position where your <code>Rproject</code> you just created lives.</p>
 <ul>
-<li><p>The <em>Files</em> pane lists the files and folders in your <strong>root directory</strong> (i.e.&nbsp;where by default RStudio save your analyses).</p></li>
+<li><p>The <em>Files</em> pane lists the files and folders in your <strong>root directory</strong> (i.e.&nbsp;where by default RStudio saves your analyses).</p></li>
 <li><p>Another important pane is <em>Plots</em>, designed to show you any plots you have created.</p></li>
 <li><p>The <em>Package</em> pane instead allows to manage all the <strong>additional tools</strong> you can import and use when you perform your analyses. They are useful to enhance the basic R functions from different aspects.</p></li>
 <li><p>If you need H E L P, you can use the <em>Help</em> pane: you can search for specific topics, for instance how a computation works and other kinds of documentation.</p></li>
 </ul></li>
-<li><p>The <code>Environment / History / Connections / Tutorial</code> window: you can find it in the top right.</p>
+<li><p>The <code>Environment / History / Connections / Tutorial</code> window: you can find it in the top right position.</p>
 <ul>
 <li><p>It is pointed to the <em>Environment</em> pane, that is a place where you can find all the <em>objects</em> available for computation (e.g.&nbsp;datasets, plots, lists, etc.).</p></li>
-<li><p>The <em>History</em> pane keeps whatever computation you run in the console. You can rerun the computation stored in the history and you can also copy the past code into an existing or new <em>R Script</em>.</p></li>
+<li><p>The <em>History</em> pane keeps whatever computation you run in the console. You can re-run the computation stored in the history and you can also copy the past code into an existing or new <em>R Script</em>.</p></li>
 </ul></li>
 </ol>
 </section>
@@ -325,7 +349,7 @@ div.col pre.r { background-color:white; }
 <h2 class="anchored" data-anchor-id="r-fundamentals">R fundamentals</h2>
 <section id="basic-computations" class="level3">
 <h3 class="anchored" data-anchor-id="basic-computations">Basic computations</h3>
-<p>The most basic computation you can do in <em>R</em> is arithmetic operations. Let’s take a look at the following examples:</p>
+<p>The most basic computation you can do in <em>R</em> is <strong>arithmetic operations</strong>. Let’s take a look at the following examples:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Addition</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span> <span class="sc">+</span> <span class="dv">7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -343,7 +367,7 @@ div.col pre.r { background-color:white; }
 <pre><code>[1] 3.741657</code></pre>
 </div>
 </div>
-<p>But R is much more than an enormous calculator! Besides arithmetic operations, there are also logical queries you can perform. Logical queries always return either the value <code>TRUE</code> or <code>FALSE</code>.</p>
+<p>But R is much more than an enormous calculator! Besides arithmetic operations, there are also <strong>logical queries</strong> you can perform. Logical queries always return either the value <code>TRUE</code> or <code>FALSE</code>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1 Is it TRUE or FALSE?</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">==</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -376,12 +400,12 @@ div.col pre.r { background-color:white; }
 <li>a function</li>
 <li>etc.</li>
 </ul>
-<p>In short, an object can enclose different things which form part of your data analysis. For example, objects are useful to store results that you want to process further in later steps of the analysis. We have to use the assign operator <code>&lt;-</code> to assign a value to an object. Let’s have a look at an example.</p>
+<p>In short, an object can enclose different things which form part of your data analysis. For example, objects are useful to <strong>store results</strong> that you want to process further in later steps of the analysis. We have to use the assign operator <code>&lt;-</code> to assign a value to an object. Let’s have a look at an example:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's assign the gene "TP53" to the "genes" object</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>genes <span class="ot">&lt;-</span> <span class="st">"TP53"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now the object <code>genes</code> carries the value <code>"TP53"</code>. If you check out the <em>Environment</em> pane, you should see that the <code>gene</code> object appeared there. We can also print values of an object in the console by simply typing the name of the object <code>genes</code> and hit <code>Return ↵</code>.</p>
+<p>Now the object <code>genes</code> carries the value <code>"TP53"</code>. If you check out the <em>Environment</em> pane, you should see that the <code>gene</code> object appeared there. We can also <strong>print values</strong> of an object in the console by simply typing the name of the object <code>genes</code> and hit <code>Return ↵</code>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What are my genes?</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>genes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -389,7 +413,7 @@ div.col pre.r { background-color:white; }
 <pre><code>[1] "TP53"</code></pre>
 </div>
 </div>
-<p>To create objects with multiple values, we can use the function <code>c()</code> which stands for ‘concatenate’:</p>
+<p>To create <strong>objects with multiple values</strong>, we can use the function <code>c()</code> which stands for ‘concatenate’:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Adding some more genes to the object</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>genes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"TP53"</span>,</span>
@@ -416,12 +440,12 @@ div.col pre.r { background-color:white; }
 </div>
 </div>
 </div>
-<p>Don’t worry about it! R’s error messages tend to be very useful and give meaningful clues to what went wrong. In this case, we can see that something ‘unexpected’ happened, and it shows where our mistake is.</p>
+<p>Don’t worry about it! R’s error messages tend to be very useful and give meaningful clues to what went wrong. In this case, we can see that something ‘unexpected’ happened and it shows where our mistake is.</p>
 </section>
 </section>
 <section id="object-types-list" class="level2">
 <h2 class="anchored" data-anchor-id="object-types-list">Object types: <code>list</code></h2>
-<p>Values inside objects are meant to be of the same type, for instance <em>numeric</em> or <em>character</em>. Consequently, mixing different types of data into one object is likely a bad idea. However, there is an exception: a <code>list</code> object can hold other objects of different data types.</p>
+<p>Values inside objects are meant to be of the same <em>type</em>, for instance <em>numeric</em> or <em>character</em>. Consequently, mixing different types of data into one object is likely a bad idea. However, there is an exception: a <em>list</em> object can hold other objects of different data types.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">list</span>(genes,</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>             <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
@@ -438,14 +462,16 @@ div.col pre.r { background-color:white; }
 [1] "TGFB1" "5"     "AKT1"  "6"    </code></pre>
 </div>
 </div>
-<p>You will notice in this example that I do not use <code>""</code> for each value in the list. This is because <code>genes</code> is not a <code>character</code> value, but an object. When we refer to objects, we do not need quotation marks.</p>
+<blockquote class="blockquote">
+<p>You will notice in this example that we do not use <code>""</code> for each value in the list. This is because <code>genes</code> is not a <code>character</code> value, but an object. When we refer to objects, we <strong>do not need quotation marks</strong>.</p>
+</blockquote>
 <p>Looking at the list item in the environment page, you can see that the object <code>data</code> is classified as a <code>List of 3,</code> and if you click on the blue icon, you can inspect the different objects inside.</p>
 <center>
 <img src="../pics/list_environment.png" class="img-fluid" width="500">
 </center>
 <section id="functions" class="level3">
 <h3 class="anchored" data-anchor-id="functions">Functions</h3>
-<p>We mention the term ‘<em>function</em>’ multiple times, but what are functions and why we need them? In simple terms, functions are objects that contain lines of codes and can be seen as shortcuts for our programming. They are useful to save space and time and to make our code more readable and reliable. We will make an example to understand better, by calculating the arithmetic mean:</p>
+<p>We mention the term ‘<em>function</em>’ multiple times, but what are functions and why we need them? In simple terms, <strong>functions are objects</strong> that contain lines of codes and can be seen as shortcuts for our programming. They are useful to save space and time and to make our code more readable and reliable. We will make an example to understand better, by calculating the arithmetic mean:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We create an object that stores our values</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>values <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">13</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">5</span>)</span>
@@ -478,7 +504,7 @@ div.col pre.r { background-color:white; }
 </section>
 <section id="data-frames" class="level3">
 <h3 class="anchored" data-anchor-id="data-frames">Data frames</h3>
-<p>The last type of objects we will see (of course there are far more types…) is the data.frame, one of the most abundantly used in <code>R</code>. Think of data.frames as the R equivalent of Excel spreadsheets, so a way to store tabular data. As we will see later, pretty much all the data we are going to handle will be in the form of a data.frame or some of its other variations.</p>
+<p>The last type of objects we will see (of course there are far many more types…) is the <em>data.frame</em>, one of the most abundantly used in <code>R</code>. Think of data.frames as the R equivalent of Excel spreadsheets, so a way to store tabular data. As we will see later, pretty much all the data we are going to handle will be in the form of a data.frame or some of its other variations.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's create and display a data frame (a table) with four rows and two columns</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="st">"Class"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>,<span class="st">"d"</span>), <span class="co"># First column</span></span>
@@ -491,22 +517,23 @@ div.col pre.r { background-color:white; }
 4     d        6</code></pre>
 </div>
 </div>
+<p>We have instructed R to create a data.frame object. We will give more of these commands from now on!</p>
 </section>
 </section>
 <section id="create-an-rscript" class="level2">
 <h2 class="anchored" data-anchor-id="create-an-rscript">Create an Rscript</h2>
 <p>You might want to save your code for a later use, especially when it starts to become long and complex. In this case, it is not very convenient to write it in the console, which does not keep track of it (as far as you don’t go back in the <em>History</em>) and does not allow to edit the code and save changes.</p>
-<p>So, instead, we can write code into an <strong>R Script</strong>, which is a document that RStudio recognises as <em>R</em> programming code and has <code>.R</code> as extension. Files that are not <em>R</em> Scripts, like <code>.txt</code>, <code>.rtf</code> or <code>.md</code>, can also be opened in RStudio, but any code written in it will not be automatically recognized.</p>
-<p>When opening an <em>R</em> script or creating a new one, it will display in the <em>Source</em> window. The term ‘source’ can be understood as any type of file, e.g.&nbsp;data, programming code, notes, etc.</p>
+<p>So, instead, we can write code into an <strong>R Script</strong>, which is a document that RStudio recognizes as <em>R programming code</em> and has <code>.R</code> as extension. Files that are not R Scripts, like <code>.txt</code>, <code>.rtf</code> or <code>.md</code>, can also be opened in RStudio, but any code written in it will not be <strong>automatically recognized</strong>.</p>
+<p>When opening an R script or creating a new one, it will display in the <em>Source</em> window. The term ‘source’ can be understood as any type of file, e.g.&nbsp;data, programming code, notes, etc.</p>
 <blockquote class="blockquote">
-<p>Now let’s create an R script, by selecting <code>File &gt; New File &gt; R Script</code> in the menu bar, or using the keyboard shortcut <code>Ctrl + Shift + N</code> on PC and <code>Cmd + Shift + N</code> on Mac. We will name it <code>Day1.R</code>.</p>
-<p>Now you can go in the <em>History</em>, copy the lines previously coded (by clicking on the first line you want to copy, then press <code>Shift + Down arrow</code>, up to the last line of code and then clicking <code>To Source</code>.</p>
+<p>Now let’s create an R script, by selecting <code>File &gt; New File &gt; R Script</code> in the menu bar, or using the keyboard shortcut <code>Ctrl + Shift + N</code> on PC and <code>Cmd + Shift + N</code> on Mac. We will name it “Day1.R”.</p>
+<p>Now you can go in the <em>History</em>, copy the lines previously coded (by clicking on the first line you want to copy, then pressing <code>Shift + Down arrow</code>, up to the last line of code) and then click <code>To Source</code>.</p>
 <p>❗️ Writing some code in your <em>R script</em> will NOT automatically run it! If you tried pressing <code>Return ↵</code>, you would only add a new line. Instead, you need to select the code you want to run and press <code>Ctrl+Return ↵</code> (PC) or <code>Cmd+Return ↵</code> (Mac).</p>
 </blockquote>
 </section>
 <section id="install-the-packages" class="level2">
 <h2 class="anchored" data-anchor-id="install-the-packages">Install the packages</h2>
-<p>The analyses we are going to perform require specific <em>functions</em> that are not included the basic set of functions in R. These functions are collected in specific <em>packages</em>. R packages are extensions to the R programming language that contain code, data and documentation which help us perform standardized workflows. In the chunk below, we instruct R to install the packages that we will need later on through the workshop.</p>
+<p>The analyses we are going to perform require specific <em>functions</em> that are not included in the basic set of functions in R. These functions are collected in specific <em>packages</em>. R packages are extensions to the R programming language that contain code, data and documentation which help us performing standardized workflows. In the chunk below, we instruct R to install the packages that we will need later on through the workshop.</p>
 <blockquote class="blockquote">
 <p>Copy this chunk and paste it to your R script.</p>
 </blockquote>
@@ -538,7 +565,7 @@ div.col pre.r { background-color:white; }
 <span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean garbage</span></span>
 <span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>During the installation, you will see many messages being displayed on your R console, don’t pay too much attention to them unless they are red and specify an error!</p>
+<p>During the installation, you will see many messages being displayed on your R console, don’t pay too much attention to them unless they are <strong>red and specify an error</strong>!</p>
 <p>If you encounter any of these messages during installation, follow this procedure here:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R asks for package updates, answer "n" and type enter</span></span>
@@ -555,13 +582,13 @@ div.col pre.r { background-color:white; }
 <span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Answer to type:</span></span>
 <span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>no</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>While the packages are installed, we can start diving into the ChIP-seq core processing steps!</p>
+<p>While the packages are installed, we can start diving into the ChIP-seq <em>core</em> processing steps.</p>
 </section>
-<section id="the-basics-of-chip-seq-data-core-processing" class="level2">
-<h2 class="anchored" data-anchor-id="the-basics-of-chip-seq-data-core-processing">The basics of ChIP-seq data <em>core</em> processing</h2>
+<section id="the-basics-of-chip-seq-data-processing" class="level2">
+<h2 class="anchored" data-anchor-id="the-basics-of-chip-seq-data-processing">The basics of ChIP-seq data processing</h2>
 <section id="raw-sequencing-output" class="level3">
 <h3 class="anchored" data-anchor-id="raw-sequencing-output">Raw Sequencing Output</h3>
-<p>The <strong>raw output</strong> of any sequencing run consists of a series of sequences (called <strong><em>reads</em></strong>). These sequences can have varying length based on the run parameters set on the sequencing platform. Nevertheless, <strong>they are made available for humans to read under a standardized file format known as FASTQ</strong>. This is the universally accepted format used to encode sequences after sequencing. An example of real FASTQ file with only two <strong><em>reads</em></strong> is provided below.</p>
+<p>The <strong>raw output</strong> of any sequencing run consists of a series of sequences (called <em>tags</em> or <strong><em>reads</em></strong>). These sequences can have varying length based on the run parameters set on the sequencing platform. Nevertheless, <strong>they are made available for humans to read under a standardized file format known as FASTQ</strong>. This is the universally accepted format used to encode sequences after sequencing. An example of real FASTQ file with only two <strong><em>reads</em></strong> is provided below.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="sc">@</span>Seq1</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>AGTCAGTTAAGCTGGTCCGTAGCTCTGAGGCTGACGAGTCGAGCTCGTACG</span>
@@ -577,9 +604,8 @@ div.col pre.r { background-color:white; }
 <p>💡 <strong>Since we now have an initial metric for each sequence, it is mandatory to conduct some standard quality control evaluation of our sequences to eventually spot technical defects in the sequencing run early on in the analysis.</strong></p>
 </blockquote>
 </section>
-</section>
-<section id="quality-metrics-inspection" class="level2">
-<h2 class="anchored" data-anchor-id="quality-metrics-inspection">Quality Metrics Inspection</h2>
+<section id="quality-metrics-inspection" class="level3">
+<h3 class="anchored" data-anchor-id="quality-metrics-inspection">Quality metrics inspection</h3>
 <p>Computational tools like <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a> aid with the <strong>visual inspection of per-sample quality metrics</strong> from NGS experiments. Some of the QC metrics of interest to consider include the ones listed below, on the <strong>left</strong> are optimal metric profiles while on the <strong>right</strong> are sub-optimal ones:</p>
 <center>
 <strong>Per-base Sequence Quality</strong> <img src="https://nbisweden.github.io/workshop-ngsintro/2001/data/rnaseq/pbsq.jpg" width="800"> <em>This uses <strong>box plots</strong> to highlight the per-base quality along all <strong>reads in the sequencing experiment, we can notice a physiological drop in quality towards the end part of the read</strong>.</em>
@@ -591,7 +617,7 @@ div.col pre.r { background-color:white; }
 <strong>Per-base Sequence Content</strong> <img src="https://nbisweden.github.io/workshop-ngsintro/2001/data/rnaseq/pbsc.jpg" width="800"> <em>Here we check the sequence (read) base content, in a normal scenario we do not expect any dramatic variation across the full length of the read since we should see a quasi-balanced distribution of bases.</em>
 </center>
 <center>
-<strong>Per-sequence GC Content</strong> <img src="https://nbisweden.github.io/workshop-ngsintro/2001/data/rnaseq/psgc.jpg" width="800"> <em>GC-content referes to the <strong>degree at which guanosine and cytosine are present within a sequence</strong>, in NGS experiments which also include PCR amplification this aspect is crucial to check since GC-poor sequences may be enriched due to their easier <strong>amplification bias</strong>. In a normal random library we would expect this to have a bell-shaped distribution such as the one on the left.</em>
+<strong>Per-sequence GC Content</strong> <img src="https://nbisweden.github.io/workshop-ngsintro/2001/data/rnaseq/psgc.jpg" width="800"> <em>GC-content refers to the <strong>degree at which guanosine and cytosine are present within a sequence</strong>, in NGS experiments which also include PCR amplification this aspect is crucial to check since GC-poor sequences may be enriched due to their easier <strong>amplification bias</strong>. In a normal random library we would expect this to have a bell-shaped distribution such as the one on the left.</em>
 </center>
 <center>
 <strong>Sequence Duplication Levels</strong> <img src="https://nbisweden.github.io/workshop-ngsintro/2001/data/rnaseq/sdl.jpg" width="800"> <em>This plot shows the degree of sequence duplication levels. In a normal library (left) we <strong>expect to have low levels of duplication</strong> which can be a positive indicator of high sequencing coverage.</em>
@@ -599,48 +625,53 @@ div.col pre.r { background-color:white; }
 <center>
 <strong>Adapter Content</strong> <img src="https://nbisweden.github.io/workshop-ngsintro/2001/data/rnaseq/ac.jpg" width="800"> <em>In NGS experiments we use <strong>adapters</strong> to create a library. Sometimes these can get sequenced accidentally and end up being part of a <strong>read</strong>. This phenomenon can be spotted here and corrected using a computational approach called <strong>adapter trimming</strong>.</em>
 </center>
-<blockquote class="blockquote">
-<p><strong>Library complexity</strong> is also a common quality measure for ChIP-seq libraries. It is linked to many factors such as antibody quality, over-crosslinking, amount of material, sonication, or over-amplification by PCR.</p>
-</blockquote>
+<p>The <strong>read trimming</strong> step consists of removing a variable portion of read extremities that contain adapters/have suboptimal quality indicated by the Phred score. Tools like <code>Cutadapt</code> can be used to perform this task after read QC, and FASTQC can be eventually run just after read trimming to double-check positive effect of getting rid of bad sequences. Note that after this step, reads might have different lengths.</p>
 </section>
-<section id="read-alignment" class="level2">
-<h2 class="anchored" data-anchor-id="read-alignment">Read alignment</h2>
-<p>Now that we have assessed the quality of the sequencing data, we are ready to align the reads to the reference genome.</p>
+<section id="read-alignment" class="level3">
+<h3 class="anchored" data-anchor-id="read-alignment">Read alignment</h3>
+<p>Now that we have assessed the quality of the sequencing data, we are ready to align the reads to the <strong>reference genome</strong> in order to <strong>map the exact chromosomal</strong> location they derive from.</p>
 <blockquote class="blockquote">
-<p>What is a reference genome? A set of nucleic acid sequences assembled as a representative example of a species’ genetic material. Does not accurately represent the set of genes of any single organism, but a mosaic of different nucleic acid sequences from each individual. For each model organism, several possible reference genomes may be available (e.g.&nbsp;hg19 and hg38 for human). As the cost of DNA sequencing falls, and new full genome sequencing technologies emerge, more genome sequences continue to be generated. New alignments are built and the reference genomes improved (fewer gaps, fixed misrepresentations in the sequence, etc). The different reference genomes correspond to the different released versions (called “builds”).</p>
+<p>A reference genome is a set of nucleic acid sequences assembled as a representative example of a species’ genetic material. It does not accurately represent the set of genes of any single organism, but a <em>mosaic</em> of different nucleic acid sequences from each individual. For each model organism, <strong>several possible reference genomes may be available</strong> (e.g.&nbsp;hg19 and hg38 for human).</p>
+<p>As the cost of DNA sequencing falls, and new full genome sequencing technologies emerge, more genome sequences continue to be generated. New alignments are built and the reference genomes improved (fewer gaps, fixed misrepresentations in the sequence, etc). The different reference genomes correspond to the different released versions (called “<strong>builds</strong>”).</p>
 </blockquote>
-<p>A mapper tool takes as input a reference genome and a set of reads. Its aim is to align each read on the reference genome, allowing mismatches, indels and clipping of some short fragments on the two ends of the reads.</p>
+<p>A mapper tool takes as input a reference genome and a set of reads. Its aim is to <strong>match each read sequence with the reference genome sequence</strong>, allowing mismatches, indels and clipping of some short fragments on the two ends of the reads.</p>
 <center>
 <strong>Illustration of the mapping process</strong> <img src="https://training.galaxyproject.org/training-material/topics/sequence-analysis/images/mapping/mapping.png" width="500">
 </center>
-<p>Currently, there are over 60 different mappers, and their number is growing. Bowtie2 is fast and accurate aligner that we introduce for this purpose. It is an open-source tool particularly good at aligning sequencing reads of about 50 up to 1,000s of bases to relatively long genomes. By default, it performs a global end-to-end read alignment, and by changing the settings, it also supports the local alignment mode.</p>
+<p>Among the different mappers, <code>Bowtie2</code> is a fast and open-source aligner particularly good at aligning sequencing reads of about 50 up to 1,000s of bases to relatively long genomes. By default, it performs a <em>global end-to-end</em> read alignment and by changing the settings, it also supports the <em>local alignment mode</em>. You can understand the difference by looking at this scheme:</p>
 <center>
 <img src="https://crc-pages.pitt.edu/user-manual/_assets/img/advanced-genomics-support/chipseq_06.png" width="500">
 </center>
+<p>Bowtie2 can identify reads that are:</p>
+<ol type="1">
+<li><p><strong>uniquely mapped</strong>: read pairs aligned exactly 1 time</p></li>
+<li><p><strong>multi-mapped</strong>: reads pairs aligned more than 1 time</p></li>
+<li><p><strong>unmapped</strong>: read pairs non concordantly aligned or not aligned at all</p></li>
+</ol>
 <blockquote class="blockquote">
-<p>Bowtie2 can identify reads that are: <br> - <strong>uniquely mapped</strong>: read pairs aligned exactly 1 time <br> - multi-mapped: reads pairs aligned more than 1 time <br> - unmapped: read pairs non concordantly aligned or not aligned at all.</p>
+<p>Multi-mapped reads can happen because of repetition in the reference genome (e.g.&nbsp;multiple copies of a gene), particularly when reads are small. It is difficult to decide where these sequences come from and therefore <strong>most of the pipelines ignore them</strong>.</p>
 </blockquote>
-<blockquote class="blockquote">
-<p>Multi-mapped reads can happen because of repetition in the reference genome (e.g.&nbsp;multiple copies of a gene), particularly when reads are small. It is difficult to decide where these sequences come from and therefore most of the pipelines ignore them.</p>
-</blockquote>
-<p>Checking the mapping statistics is an important step to do before continuing any analyses. There are several potential sources for errors in mapping, including (but not limited to):</p>
+<section id="mapping-statistics" class="level4">
+<h4 class="anchored" data-anchor-id="mapping-statistics">Mapping statistics</h4>
+<p>Checking the mapping statistics is an important step to perform before to continue any analyses. There are several potential <strong>sources for errors in mapping</strong>, including (but not limited to):</p>
 <ul>
 <li><p>PCR artifacts: PCR errors will show as mismatches in the alignment</p></li>
 <li><p>sequencing errors</p></li>
 <li><p>error of the mapping algorithm due to repetitive regions or other low-complexity regions.</p></li>
 </ul>
-<p>A low percentage of uniquely mapped reads is often due to, (i) either excessive amplification in the PCR step, (ii) inadequate read length, or (iii) problems with the sequencing platform.</p>
+<p>A <strong>low percentage of uniquely mapped reads</strong> is often due to (i) either excessive amplification in the PCR step, (ii) inadequate read length, or (iii) problems with the sequencing platform.</p>
 <blockquote class="blockquote">
-<p>For percentage of uniquely mapped reads, 70% or higher is considered good, whereas 50% or lower is concerning. The percentages are not consistent across different organisms, thus the rule can be flexible!</p>
+<p><strong>70% or higher</strong> is considered a good percentage of uniquely mapped reads over all the reads, whereas 50% or lower is concerning. The percentages are not consistent across different organisms, thus the rule can be flexible!</p>
 </blockquote>
 <p>But where the read mappings are stored?</p>
-<section id="the-bam-file" class="level3">
-<h3 class="anchored" data-anchor-id="the-bam-file">The BAM file</h3>
-<p>A BAM (Binary Alignment Map) file is a compressed binary file storing the read sequences, whether they have been aligned to a reference sequence (e.g.&nbsp;a chromosome), and if so, the position on the reference sequence at which they have been aligned.</p>
+</section>
+<section id="the-bam-file-format" class="level4">
+<h4 class="anchored" data-anchor-id="the-bam-file-format">The BAM file format</h4>
+<p>A BAM (Binary Alignment Map) file is a <em>compressed binary file</em> storing the read sequences, whether they have been aligned to a reference sequence (e.g., a chromosome), and if so, the position on the reference sequence at which they have been aligned.</p>
 <p>A BAM file (or a SAM file, the non-compressed version) consists of:</p>
 <ul>
-<li><p>A header section (the lines starting with @) containing metadata particularly the chromosome names and lengths (lines starting with the <span class="citation" data-cites="SQ">@SQ</span> symbol)</p></li>
-<li><p>An alignment section consisting of a table with 11 mandatory fields, as well as a variable number of optional fields.</p></li>
+<li><p>A <strong>header section</strong> (the lines starting with @) containing <em>metadata</em>, particularly the chromosome names and lengths (lines starting with the <span class="citation" data-cites="SQ">@SQ</span> symbol)</p></li>
+<li><p>An <strong>alignment section</strong> consisting of a table with 11 mandatory fields, as well as a variable number of optional fields.</p></li>
 </ul>
 <center>
 <strong>BAM file format</strong> <img src="https://i2.wp.com/bioinformaticamente.com/wp-content/uploads/2021/03/sam_format_annotated_example.5108a0cd-1.jpg?resize=616%2C328&amp;ssl=1" width="500">
@@ -660,57 +691,67 @@ div.col pre.r { background-color:white; }
 </div>
 </section>
 </section>
-<section id="peak-calling" class="level2">
-<h2 class="anchored" data-anchor-id="peak-calling">Peak calling</h2>
-<p>The read count data generated by ChIP-seq is massive. So how to predict the DNA-binding sites from this read count data? For this, various Peak Calling methods have been developed. <strong>Peaks</strong> are regions with significant number of mapped reads that produce a <em>pileup</em>. Probably the most discussed issue in ChIP-seq experiments is the best method to find true peaks in the data. ChIP-seq is most often performed with single-end reads, and ChIP fragments are sequenced from their 5’ ends only. This creates <strong>two distinct peaks</strong>; one on each strand with the binding site falling in the middle of these peaks, the distance from the middle of the peaks to the binding site is often referred to as the “<em>shift</em>”.</p>
+<section id="peak-calling" class="level3">
+<h3 class="anchored" data-anchor-id="peak-calling">Peak calling</h3>
+<p>The read count data generated by ChIP-seq is massive. In order to predict <em>the actual sites where the protein of interest is likely to bind</em>, different peak calling methods have been developed. <strong>Peaks</strong> are regions with <strong>significant number of mapped reads that produce a <em>pileup</em></strong>.</p>
+<blockquote class="blockquote">
+<p>ChIP-seq is most often performed with <strong>single-end reads</strong>, and ChIP fragments are sequenced from their 5’ ends only. This creates <strong>two distinct peaks of read density</strong>! One on each strand with the binding site falling in the middle of these peaks. The distance from the middle of the peaks to the binding site is often referred to as the “<em>shift</em>”.</p>
+</blockquote>
 <center>
 <p><img src="https://www.ncbi.nlm.nih.gov/pmc/articles/instance/2917543/bin/nihms223699f1.jpg" width="400"></p>
 <p><em>Forward (blue) and reverse (maroon) Read Density Profiles derived from the read data contribute to the Combined Density Profile (orange). <a href="https://pubmed.ncbi.nlm.nih.gov/19160518/">Nat. Methods,2008</a></em></p>
 </center>
+<p>The most popular tool to find peaks is <strong>MACS2</strong> which empirically models the <strong>shift size</strong> of ChIP-Seq reads, and uses it to improve the spatial resolution of predicted binding sites. Briefly, these are <strong>the steps</strong> performed by MACS:</p>
+<ol type="1">
+<li><p>removing duplicate reads</p></li>
+<li><p>modelling the shift size</p></li>
+<li><p>scaling the libraries with respect to their controls</p></li>
+<li><p>performing peak detection</p></li>
+<li><p>estimating False Discovery Rate (FDR)</p></li>
+</ol>
+<p>The peak detection identifies areas in the genome that have been <strong>enriched</strong> <strong>with mapped reads</strong>.</p>
 <blockquote class="blockquote">
-<p>The most popular method is <strong>MACS2</strong> which empirically models the <strong>shift size</strong> of ChIP-Seq tags, and uses it to improve the spatial resolution of predicted binding sites. Briefly, these are the steps performed by MACS: - removing duplicate reads - modelling the shift size - scaling the libraries with respect to their controls - performing peak detection - estimating False Discovery Rate (FDR)</p>
-</blockquote>
-<p>The peak calling step identifies areas in the genome that have been <strong>enriched</strong> with aligned reads as a result of performing ChIP-sequencing experiment.</p>
-<blockquote class="blockquote">
-<p>Enrichment = Immunoprecipitation reads/background reads (mock IP or untagged IP) If an experimental control data is NOT available, a random genomic background is assumed.</p>
+<p>Enrichment = Immunoprecipitation reads/background reads (mock IP or untagged IP).</p>
+<p>If an experimental control data is NOT available, a <em>random genomic background</em> is assumed.</p>
 </blockquote>
 <center>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../pics/chip_peakcalling.png" class="img-fluid figure-img" width="421"></p>
-<figcaption>Overview of the Peak Calling step</figcaption>
+<figcaption><strong>Overview of the Peak Calling step</strong></figcaption>
 </figure>
 </div>
 </center>
-<p>Finally, peaks are filtered to reduce false positives and ranked according to relative strength or statistical significance.</p>
-<p>After peak calling, it’s important to check some metrics that are indicative of the quality of the ChIP-seq experiment. Here are two of the most useful:</p>
+<p>Finally, peaks are filtered to reduce <em>false positives</em> and ranked according to relative strength or statistical significance.</p>
+<section id="different-peak-profiles" class="level4">
+<h4 class="anchored" data-anchor-id="different-peak-profiles">Different peak profiles</h4>
+<p>An important factor that influences the sequencing depth that is required for a ChIP–seq experiment is whether the protein (or chromatin modification) is a point-source factor, a broad-source factor or a mixed-source factor.</p>
 <ul>
-<li><p><em>FRiP score</em>: reports the percentage of reads overlapping within called peak. Can be useful to understand how much is “enriched” the IP sample.</p></li>
-<li><p><em>Strand cross-correlation</em>: high-quality ChIP-seq produces significant clustering of enriched DNA sequence tags at locations bound by the protein of interest, that present as a bimodal enrichment of reads on the forward and reverse strands (peaks). The Cross-correlation Metric calculates how many bases to shift the peak in order to get the maximum correlation between the two peaks, which corresponds to the predominant fragment length.</p></li>
-</ul>
-</section>
-<section id="broad-vs.-narrow-peaks" class="level2">
-<h2 class="anchored" data-anchor-id="broad-vs.-narrow-peaks">Broad vs.&nbsp;narrow peaks</h2>
-<p>An important factor that influences the read count that is required for a ChIP–seq experiment is whether the protein (or chromatin modification) is a point-source factor, a broad-source factor or a mixed-source factor.</p>
-<ul>
-<li><p><strong>Point sources</strong> occur at specific locations in the genome. This class includes sequence-specific transcription factors as well as some highly localized chromatin marks, for example, those associated with enhancers and transcription start sites. They will generate more often narrow peaks.</p></li>
-<li><p><strong>Broad sources</strong> are generally those that cover extended areas of the genome, such as many chromatin marks (for example, histone H3 lysine 9 trimethylation (H3K9me3) marks). They will give raise to broad peaks.</p></li>
-<li><p><strong>Mixed-source factors</strong>, such as RNA polymerase II, yield both types of peaks. As expected, broad-source and mixed-source factors require a greater number of reads than point-source factors. Peaks generated will have a mixed profile between narrow and broad.</p></li>
+<li><p><strong>Point sources</strong> occur at specific locations in the genome. This class includes sequence-specific transcription factors as well as some highly localized chromatin marks, for example, those associated with enhancers and transcription start sites. They will generate more often <strong><em>narrow</em></strong> <strong>peaks</strong>.</p></li>
+<li><p><strong>Broad sources</strong> are generally those that cover extended areas of the genome, such as many chromatin marks (for example, histone H3 lysine 9 trimethylation (H3K9me3) marks). They will give raise to <strong>broad peaks</strong>.</p></li>
+<li><p><strong>Mixed-source factors</strong>, such as RNA polymerase II, yield both types of peaks. As expected, broad-source and mixed-source factors require a greater number of reads than point-source factors. Peaks generated will have a <strong>mixed profile between narrow and broad</strong>.</p></li>
 </ul>
 <center>
 <img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fnrg3642/MediaObjects/41576_2014_Article_BFnrg3642_Fig2_HTML.jpg" width="500">
 </center>
 </section>
-<section id="bed-and-bigwig-file-formats" class="level2">
-<h2 class="anchored" data-anchor-id="bed-and-bigwig-file-formats">BED and BigWig file formats</h2>
-<p>Most high-throughput data can be viewed as a continuous score over the bases of the genome. In case of RNA-seq or ChIP-seq experiments, the data can be represented as <strong>read coverage values per genomic base position</strong>.</p>
-<p>This sort of data can be stored as a generic text file or can have special formats such as Wig (stands for wiggle) from UCSC, or the <strong>bigWig format</strong>, which is an indexed binary format of the wig files. Another file that can be useful to inspect is the BigWig. This format is used to display large and continuous data</p>
-<p>The bigWig format is great for data that covers a large fraction of the genome with varying scores, because the file is much smaller than regular text files that have the same information and it can be queried more easily since it is indexed.</p>
+<section id="additional-qc-metrics" class="level4">
+<h4 class="anchored" data-anchor-id="additional-qc-metrics">Additional QC metrics</h4>
+<p>After peak calling, it’s important to check some metrics that are indicative of the overall quality of the ChIP-seq experiment. Here are two of the most useful:</p>
+<ul>
+<li><p><em>FRiP score</em>: reports the percentage of reads overlapping within called peak. Can be useful to understand how much the IP sample is “enriched”.</p></li>
+<li><p><em>Strand cross-correlation</em>: high-quality ChIP-seq produces significant clustering of enriched reads at locations bound by the protein of interest, that present as a bimodal density profile on the forward and reverse strands (peaks). The cross-correlation metric calculates how many bases to shift the bimodal peaks in order to get the maximum correlation between the two read clusters, which corresponds to the <em>predominant <strong>fragment length</strong></em>.</p></li>
+</ul>
+</section>
+<section id="bigwig-and-bed-file-formats" class="level4">
+<h4 class="anchored" data-anchor-id="bigwig-and-bed-file-formats">BigWig and BED file formats</h4>
+<p>Most high-throughput data can be viewed as a <strong><em>continuous</em></strong> <strong>score</strong> over the bases of the genome. In case of RNA-seq or ChIP-seq experiments, the data can be represented as <strong>read coverage values per genomic base position</strong>.</p>
+<p>This sort of data can be stored as a generic text file or can have special formats such as Wig (stands for wiggle) from UCSC, or the <strong>bigWig format</strong>, which is an indexed binary format of the wig files.</p>
 <blockquote class="blockquote">
-<p>Most of the ENCODE project data can be downloaded in bigWig format!</p>
+<p>The bigWig format is great for data that covers a large fraction of the genome with varying and continuous scores, because the file is much smaller than regular text files that have the same information and it can be queried more easily since <strong>it is indexed</strong>. Most of the ENCODE project data can be downloaded in bigWig format!</p>
 </blockquote>
-<p>If we want to know instead the peak locations in the genome as chromosome locations, we want to look at BED files, that are the main output of the peak calling step.</p>
-<p>A typical BED file is a text file format used to store genomic regions as coordinates. The data are presented in form of columns separated by tabs. This is the structure of a standard BED files, which can have also additional columns.</p>
+<p>If we want to know instead the peak locations in the genome as <strong>chromosome coordinates with well defined <em>start</em> and <em>end</em> positions</strong>, we want to look at BED files, that are the main output of the peak calling step.</p>
+<p>A typical BED file is a text file format used to store genomic regions as coordinates. The data are presented in form of columns separated by <em>tabs</em>. This is the structure of a standard BED file, which can have also additional columns.</p>
 <center>
 <img src="https://hbctraining.github.io/Intro-to-ChIPseq-flipped/img/bed.png" width="400">
 </center>
@@ -718,9 +759,10 @@ div.col pre.r { background-color:white; }
 <p>We will use this file type to inspect peak locations and for future downstream analyses!</p>
 </blockquote>
 </section>
-<section id="collapse-data-into-a-single-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="collapse-data-into-a-single-dataset">Collapse data into a single dataset</h2>
-<p>Imagine that you are performing these steps of read processing not just for one library, but for a collection of samples with different replicates and experimental conditions, and you subsequently want to make differential comparisons across conditions. To this aim, it’s necessary to collapse the single peak files obtained from each single library into a single <strong><em>consensus</em></strong> <strong>peakset</strong>.</p>
+</section>
+<section id="collapse-data-into-a-single-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="collapse-data-into-a-single-dataset">Collapse data into a single dataset</h3>
+<p>Imagine that you are performing these steps of read processing not just for one library, but for a collection of samples <em>with different replicates and experimental conditions</em>, and you subsequently want to make differential comparisons across conditions. To this aim, it’s necessary to collapse the single peak files obtained from each single library into a single <strong><em>consensus</em></strong> <strong>peakset</strong>.</p>
 <p>In this step you can also add a filtering to exclude genomic intervals that are identified as peaks only in a minority of samples. <code>DiffBind</code> and <code>BEDTools</code> are two common programs that can handle this task.</p>
 <p>It can be helpful to make a plot of how many peaks overlap in how many samples, like this one:</p>
 <center>
@@ -728,38 +770,44 @@ div.col pre.r { background-color:white; }
 <p><em>This plot shows that there are almost 4000 total merged peaks, representing the union of all intervals. At the other extreme, there are around 100 peaks that overlap in all 11 samples, representing the intersection of all the samples.</em></p>
 </center>
 <blockquote class="blockquote">
-<p>Which should we chose? Given the rigor of the statistical analysis that we are going to perform, now we can choose a more inclusive consensus set. The default is to make the consensus peak set using peaks identified in at least two samples.</p>
+<p>Which should we chose? Given the rigor of the statistical analysis that we are going to perform, now we can choose a more <em>inclusive</em> consensus set. The default is to make a consensus peakset using peaks identified <strong>in at least 2 samples</strong>.</p>
 </blockquote>
+</section>
 <section id="counting-reads-in-consensus-peaks" class="level3">
 <h3 class="anchored" data-anchor-id="counting-reads-in-consensus-peaks">Counting reads in consensus peaks</h3>
-<p>Now that you have created a consensus peakset for all of your ChIP-seq experiment, it is time to actually count how many times a given sequence in your peakset is Your final dataset will represent a robust representation of binding events.</p>
-<p>Once consensus peaks are defined, the next step is to quantify the number of sequencing reads that align to these regions. This read counting process provides quantitative information about the strength and extent of protein binding within the identified peaks.</p>
+<p>Once consensus genomic regions are defined, the next step is to <strong>count the number of sequencing reads that align to these regions</strong>. This read counting process provides <strong>quantitative information</strong> about the strength and extent of protein binding within the identified peaks.</p>
 <blockquote class="blockquote">
-<p>The mapped reads can we counted across peaks in the consensus using a tool called <code>FeatureCounts</code>.</p>
+<p>Uniquely mapped reads can be counted within peaks in the consensus using a tool called <code>FeatureCounts</code>.</p>
 </blockquote>
-<p>Counts for the samples in all the consensus peakset are output as a tabular file, in which each row represents one peak, and you have one column for each sample. We will now load one and take a closer look, this will be our starting point in the hands-on analysis of a ChIP-seq dataset.</p>
+<p>Sample counts for all the consensus peaks are output as a tabular file, in which <strong>each row represents one peak</strong>, and you have <strong>one column for each sample</strong>. We will now load one and take a closer look: this will be our starting point in the <em>hands-on</em> analysis of a ChIP-seq dataset.</p>
 <blockquote class="blockquote">
 <p>Before going on, let’s summarize the steps of a ChIP-seq analysis workflow that we have seen so far with the following scheme. You can find the file format names associated to the output of each task.</p>
 </blockquote>
 <center>
-<p><img src="../pics/Workflow_chipseq.png" class="img-fluid" width="647"></p>
+<img src="../pics/Workflow_chipseq.png" class="img-fluid" width="647">
 </center>
 </section>
 </section>
-<section id="the-study" class="level2">
-<h2 class="anchored" data-anchor-id="the-study">The study</h2>
+<section id="the-tested-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="the-tested-dataset">The tested dataset</h2>
+<p>The dataset we will analyze comes from this paper published from our lab in 2021:</p>
+<blockquote class="blockquote">
+<p>Della Chiara, Gervasoni, Fakiola, Godano et al., 2021 - Epigenomic landscape of human colorectal cancer unveils an aberrant core of pan-cancer enhancers orchestrated by YAP/TAZ</p>
+</blockquote>
+<p>Its main object was to explore the way cancer cells use enhancers as opposed to nonmalignant cells, and we did so by using <strong>ChIP-seq on histone marks</strong> extensively. We generated <strong>organoid lines to model colorectal tumors</strong>, analyzed their epigenome, and compared it to the ATAC-seq-derived chromatin activity data of multiple other malignancies. We found a small number of <strong>enhancer sequences were conserved</strong> across all these types, and identified a transcription factor that linked them - the YAP/TAZ pair - that when perturbed would cause the death of malignant, but not normal, organoids, therefore representing a potential pan-cancer therapeutic target.</p>
 <p><img src="../pics/graphical_abstract_yap_taz_1.png" class="img-fluid"></p>
 <p><img src="../pics/graphical_abstract_yap_taz_2.png" class="img-fluid"></p>
+<p>In this workshop, we will re-analyze a portion of the ChIP-seq dataset used in the paper, pertaining to <strong>Histone 3 Lysine 27 Acetylation</strong> - a marker of activation present at active regulatory sequences, enhancers and promoters alike.</p>
 </section>
 <section id="load-and-explore-the-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="load-and-explore-the-dataset">Load and explore the dataset</h2>
-<p>In order to speed up the computations and keep memory usage low, we have subset the dataset only to chromosome 12. It will be interesting to see if we can recapitulate similar analyses by looking only to one chromosome 🤓</p>
+<p>In order to speed up the computations and keep memory usage low, we have <strong>subset the dataset only to chromosome 12</strong>. It will be interesting to see if we can recapitulate similar analyses by looking only at a single chromosome 🤓</p>
 <p>Data are in this public Google Drive <a href="https://drive.google.com/drive/folders/1-9yQESQn3JOvP9jqoWcqfgOZyqAC5M6J?usp=sharing">folder</a>. You will find:</p>
 <ol type="1">
-<li><code>raw_counts_chr12.matrix</code>: the peak by sample matrix containing the number of reads detected for each peak in each sample.</li>
-<li><code>colData.txt</code>: a tabular file containing our metadata related to columns of the count table, which contains different info about our samples (e.g.&nbsp;the treatment, the sample origin, etc.).</li>
-<li><code>peakset.bed</code>: a BED file with the chromosome locations of all the consensus peakset.</li>
-<li><code>recurrence_chr12.matrix</code>: this is a table where you can find if any of the regions that constitute the consensus peakset is also called as peak in each separate sample. Remember that when a consensus peakset is created, usually genomic intervals called ad peaks in at least 2 out of all the samples are kept in the consensus, and you might find also intervals that are called in 3 or in all the samples. It might be interesting to check how the data are distributed.</li>
+<li><code>raw_counts_chr12.matrix</code>: the <strong>peak by sample matrix</strong> containing the number of reads detected for each peak in each sample.</li>
+<li><code>colData.txt</code>: a tabular file containing our <strong>metadata</strong> related to columns of the count table, which contains different info about our samples (e.g.&nbsp;the treatment, the sample origin, etc.).</li>
+<li><code>peakset.bed</code>: a BED file with the chromosome locations of the entire consensus peakset (i.e.&nbsp;all chromosomes).</li>
+<li><code>recurrence_chr12.matrix</code>: this is a table where you can find if any of the intervals that constitute the consensus peakset is also called as peak in each separate sample. Remember that when a consensus peakset is created, usually genomic intervals called ad peaks in at least 2 out of all the samples are kept in the consensus. Therefore, in the consensus you might find intervals that are called in 3 or in all the samples. It might be interesting to check how the peaks are distributed.</li>
 <li><code>dba_Korg_Ntissue_homer_annot.txt</code>: this file contains information about the annotation of each consensus peakset to the nearest gene TSS. You will understand later its usage.</li>
 <li><code>Korg_UP_regions_results.txt</code> and <code>Ncr_UP_regions_results.txt</code>: these files store the differential analysis results for the entire peakset and we will need them on day 3 to perform downstream functional analyses.</li>
 </ol>
@@ -1006,7 +1054,7 @@ div.col pre.r { background-color:white; }
 </div>
 </div>
 <p>We can see that our table contains count information for 1581 peaks and 15 samples.</p>
-<p>We can also inspect the <strong>metadata</strong> from the samples which is stored in the <code>samples</code> variable we created above.</p>
+<p>We can also inspect the <strong>metadata</strong> from the samples which is stored in the <code>samples</code> object we created above.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What does the table look like?</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>samples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1164,7 +1212,7 @@ div.col pre.r { background-color:white; }
 </section>
 <section id="savingloading-files" class="level2">
 <h2 class="anchored" data-anchor-id="savingloading-files">Saving/Loading Files</h2>
-<p><strong>Let’s save this object with samples information in a file on this cloud session</strong>, this might be needed later if we end up in some trouble with the <code>R</code> session! This is a file format where columns are separated by commas. You might be familiar with this format if you have worked quite a bit in Excel. In <code>R</code>, we can save tabular data with the <code>write.table()</code> function specifying the location (the file name) we want. This is <strong>useful in the case our <code>R</code> session dies or we decide to interrupt it</strong>. In this case we will not have to run the whole analysis from the beginning and we can just source the file and load it!</p>
+<p><strong>Let’s save this object with samples information in a file on this cloud session</strong>, this might be needed later if we end up in some trouble with the <code>R</code> session! We will save it in a file format where columns are separated by commas. You might be familiar with this format if you have worked quite a bit in Excel. In <code>R</code>, we can save tabular data with the <code>write.table()</code> function specifying the location (the file name) we want. This is <strong>useful in the case our <code>R</code> session dies or we decide to interrupt it</strong>. In this case we will not have to run the whole analysis from the beginning and we can just source the file and load it!</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(samples, <span class="st">"samples_table.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">quote =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1177,7 +1225,6 @@ div.col pre.r { background-color:white; }
 </blockquote>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
