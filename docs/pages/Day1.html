@@ -248,25 +248,21 @@ div.col pre.r { background-color:white; }
 <section id="the-chip-seq-technology" class="level2">
 <h2 class="anchored" data-anchor-id="the-chip-seq-technology">The ChIP-seq technology</h2>
 <p>In this context, we chose to deal with a Chromatin Immuno-precipitation (ChIP from now on) assay.&nbsp;</p>
-<p>Suppose you have found an interesting, new histone variant, and managed to produce a strong antibody against it. You want to know where it's located in the genome of your cells of interest (say, tumor cells), to start deducing its function.</p>
-<p>ChIP, coupled to sequencing (ChIP-seq), allows you to approach the question, <strong>genome-wide</strong>.</p>
-<p>It works by extracting chromatin (DNA bound to protein), fragmenting it, and selecting the protein or protein variant of interest from this complex mixture with an antibody in some way specific for it. The subset of genome you will have isolated will constitute the sequences you expect your variant to bind, informing your inferences regarding its function.</p>
 <blockquote class="blockquote">
-<p>ChIP-seq use in mapping histone modifications has been seminal in epigenetics research! (Ku et al., <a href="[https://pubmed.ncbi.nlm.nih.gov/21825079/">2011</a>)](https://pubmed.ncbi.nlm.nih.gov/21825079/)))</p>
+<p>💭 Suppose you have found an interesting, new histone variant, and managed to produce a strong antibody against it. You want to know where it’s located in the genome of your cells of interest (say, tumor cells), to start deducing its function.</p>
+</blockquote>
+<p>ChIP, coupled to sequencing (ChIP-seq), allows you to approach the question, <strong>genome-wide</strong>.</p>
+<p>It works by extracting chromatin (DNA bound to protein), fragmenting it, and selecting the protein or protein variant of interest from this complex mixture with an antibody in some way specific for it. The <strong>subset of genome you will have isolated</strong> will constitute the sequences you expect your variant to bind, <strong>informing your inferences regarding its function</strong>.</p>
+<blockquote class="blockquote">
+<p>ChIP-seq use in mapping histone modifications has been seminal in epigenetics research! (Ku et al., <a href="https://pubmed.ncbi.nlm.nih.gov/21825079/">2011</a>)</p>
 </blockquote>
 <p>Here you can see a recap of the major steps:</p>
 <pre><code>+ Cross-linking: add Formaldehyde
-
 + Cell lysis (breakdown of cell membranes)
-
 + Fragmentation of DNA fragments (shearing), e.g. digestion with specific endonuclease enzymes (dpn1) or sonication
-
 + Addition of specific bead-coupled antibody against the protein of interest, separating it from the mixture
-
 + Separate DNA from the protein (reverse cross-linking), and DNA purification
-
 + DNA fragment amplification, library construction
-
 + Library sequencing by NGS (essentially Illumina)</code></pre>
 <center>
 <div>
@@ -281,19 +277,23 @@ div.col pre.r { background-color:white; }
 <ul>
 <li><p>For mammalian (or any species with a relatively large genome) transcription factors (TFs) and chromatin modifications such as enhancer-associated histone marks: <strong>20 million reads</strong> are adequate</p></li>
 <li><p>Proteins with more binding sites (e.g., RNA Pol II) or more promiscuous factors (e.g.&nbsp;CTCF) need more reads, up to <strong>60 million</strong> for mammalian ChIP-seq</p></li>
-<li><p>Sequencing depth rules of thumb: &gt;10M reads for <em>narrow</em> peaks, &gt;20M for <em>broad</em> peaks (you will understand better this concept later in the Peak Calling section)</p></li>
-<li><p>Long &amp; paired-end reads are useful, but not essential - they may however help in specific, high-precision binding site discovery</p></li>
-<li><p>Replicates: Unlike with RNA-Seq, more than two replicates do not significantly increase the number of identified peaks</p></li>
+<li><p>Sequencing depth rules of thumb: &gt;10M reads for <em>narrow</em> peaks, &gt;20M for <em>broad</em> peaks (you will understand better this concept later in the <em>Peak Calling section</em>)</p></li>
 </ul>
-<p>A successful ChIP-seq experiment must have the appropriate <strong>controls</strong> to optimize signal-noise ratio. Well-made controls help eliminate false positives. In fact, there is always some signal on open chromatin. This may be due to multiple factors, but can be boiled down to three reasons: A) non-specific binding from the antibody can precipitate random sequences B) digestion, sonication, or any other method of shearing will introduce biases towards certain sequences C) different operators will perform the same protocol slightly differently, yielding higher or lower signal/noise ratios. The following controls are often used to abate these biases:</p>
+<p>Another consideration is about sequence modality: long &amp; paired-end reads are useful, but not essential - they may however help in specific, high-precision binding site discovery. Most of the times, ChIP-seq can be performed in <strong>single-end</strong> mode.</p>
+<p>About the number of <strong>technical replicates</strong>, unlike with RNA-Seq, more than two replicates do not significantly increase the number of identified peaks.</p>
+<section id="chip-controls" class="level4">
+<h4 class="anchored" data-anchor-id="chip-controls">ChIP controls</h4>
+<p>A successful ChIP-seq experiment must have the appropriate <strong>controls</strong> to optimize signal-noise ratio. Well-made controls help <strong>eliminate false positives</strong>. In fact, there is always some signal on open chromatin. This may be due to multiple factors, but can be boiled down to three reasons: <strong>A)</strong> non-specific binding from the antibody can precipitate random sequences <strong>B)</strong> digestion, sonication, or any other method of shearing will introduce biases towards certain sequences <strong>C)</strong> different operators will perform the same protocol slightly differently, yielding higher or lower signal/noise ratios.</p>
+<p>The following controls are often used to abate these biases:</p>
 <ul>
 <li><p>An “<strong>input</strong>” DNA sample in which a library is generated from DNA that has been cross-linked and sonicated but not immuno-precipitated. It controls for the <strong>bias introduced before even immunoprecipitating</strong>, i.e.&nbsp;from sonication.</p></li>
 <li><p>An <strong>IgG</strong> “mock”-ChIP, using an antibody that will not bind to nuclear proteins and should generate random immuno-precipitated DNA. It controls for <strong>non-specific sequences</strong> that precipitate alongside the target protein, but are not bound by it.</p></li>
 <li><p>A <strong>Spike-In</strong> can also be introduced, using different genomes (e.g.&nbsp;Drosophila in a Human experiment) to control for handling <strong>variability</strong> between users, or batch differences between reagents. This helps dampen these confounders.</p></li>
 </ul>
 <blockquote class="blockquote">
-<p>Input DNA control is ideal in most of the cases. Indeed, one problem with IgG control is that if too little DNA is recovered after immuno-precipitation, sequencing library will be of low complexity and binding sites identified using this control could be biased. Read <a href="https://www.biostars.org/p/15817/">this biostars post</a> for discussion.</p>
+<p><strong>Input DNA control is ideal</strong> in most of the cases. Indeed, one problem with IgG control is that if too little DNA is recovered after immuno-precipitation, sequencing library will be of low complexity and binding sites identified using this control could be biased. Read <a href="https://www.biostars.org/p/15817/">this biostars post</a> for discussion.</p>
 </blockquote>
+</section>
 </section>
 <section id="next-generation-sequencing" class="level2">
 <h2 class="anchored" data-anchor-id="next-generation-sequencing">Next Generation Sequencing</h2>
@@ -797,11 +797,13 @@ div.col pre.r { background-color:white; }
 <p>Its main object was to explore the way cancer cells use enhancers as opposed to nonmalignant cells, and we did so by using <strong>ChIP-seq on histone marks</strong> extensively. We generated <strong>organoid lines to model colorectal tumors</strong>, analyzed their epigenome, and compared it to the ATAC-seq-derived chromatin activity data of multiple other malignancies. We found a small number of <strong>enhancer sequences were conserved</strong> across all these types, and identified a transcription factor that linked them - the YAP/TAZ pair - that when perturbed would cause the death of malignant, but not normal, organoids, therefore representing a potential pan-cancer therapeutic target.</p>
 <p><img src="../pics/graphical_abstract_yap_taz_1.png" class="img-fluid"></p>
 <p><img src="../pics/graphical_abstract_yap_taz_2.png" class="img-fluid"></p>
-<p>In this workshop, we will re-analyze a portion of the ChIP-seq dataset used in the paper, pertaining to <strong>Histone 3 Lysine 27 Acetylation</strong> - a marker of activation present at active regulatory sequences, enhancers and promoters alike.</p>
+<blockquote class="blockquote">
+<p>✅ In this workshop, we will re-analyze a portion of the ChIP-seq dataset used in the paper, pertaining to <strong>Histone 3 Lysine 27 Acetylation</strong> - a marker of activation present at active regulatory sequences, enhancers and promoters alike.</p>
+</blockquote>
 </section>
 <section id="load-and-explore-the-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="load-and-explore-the-dataset">Load and explore the dataset</h2>
-<p>In order to speed up the computations and keep memory usage low, we have <strong>subset the dataset only to chromosome 12</strong>. It will be interesting to see if we can recapitulate similar analyses by looking only at a single chromosome 🤓</p>
+<p>In order to speed up the computations and keep memory usage low, we have <strong>subset the dataset only to chromosome 12</strong>. It will be interesting to see if we can recapitulate similar analyses by looking only at a single chromosome 🤓.</p>
 <p>Data are in this public Google Drive <a href="https://drive.google.com/drive/folders/1-9yQESQn3JOvP9jqoWcqfgOZyqAC5M6J?usp=sharing">folder</a>. You will find:</p>
 <ol type="1">
 <li><code>raw_counts_chr12.matrix</code>: the <strong>peak by sample matrix</strong> containing the number of reads detected for each peak in each sample.</li>

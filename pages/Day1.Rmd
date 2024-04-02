@@ -41,30 +41,23 @@ Summing up, an Omics experiment is designed starting from a question, selecting 
 
 In this context, we chose to deal with a Chromatin Immuno-precipitation (ChIP from now on) assay. 
 
-Suppose you have found an interesting, new histone variant, and managed to produce a strong antibody against it. You want to know where it\'s located in the genome of your cells of interest (say, tumor cells), to start deducing its function.
+> 💭 Suppose you have found an interesting, new histone variant, and managed to produce a strong antibody against it. You want to know where it's located in the genome of your cells of interest (say, tumor cells), to start deducing its function.
 
 ChIP, coupled to sequencing (ChIP-seq), allows you to approach the question, **genome-wide**.
 
-It works by extracting chromatin (DNA bound to protein), fragmenting it, and selecting the protein or protein variant of interest from this complex mixture with an antibody in some way specific for it. The subset of genome you will have isolated will constitute the sequences you expect your variant to bind, informing your inferences regarding its function.
+It works by extracting chromatin (DNA bound to protein), fragmenting it, and selecting the protein or protein variant of interest from this complex mixture with an antibody in some way specific for it. The **subset of genome you will have isolated** will constitute the sequences you expect your variant to bind, **informing your inferences regarding its function**.
 
-> ChIP-seq use in mapping histone modifications has been seminal in epigenetics research! (Ku et al., [2011]([https://pubmed.ncbi.nlm.nih.gov/21825079/))](https://pubmed.ncbi.nlm.nih.gov/21825079/)))
-
+> ChIP-seq use in mapping histone modifications has been seminal in epigenetics research! (Ku et al., [2011](https://pubmed.ncbi.nlm.nih.gov/21825079/))
 
 Here you can see a recap of the major steps:
 
-```
+```         
 + Cross-linking: add Formaldehyde
-
 + Cell lysis (breakdown of cell membranes)
-
 + Fragmentation of DNA fragments (shearing), e.g. digestion with specific endonuclease enzymes (dpn1) or sonication
-
 + Addition of specific bead-coupled antibody against the protein of interest, separating it from the mixture
-
 + Separate DNA from the protein (reverse cross-linking), and DNA purification
-
 + DNA fragment amplification, library construction
-
 + Library sequencing by NGS (essentially Illumina)
 ```
 
@@ -80,34 +73,33 @@ Here you can see a recap of the major steps:
 
 ## Tips for designing a ChIP-seq experiment
 
-Besides characterizing binding patterns in general, a common goal in ChIP-seq experiments is to **identify changes in protein binding patterns** between conditions, an application known as differential binding. 
+Besides characterizing binding patterns in general, a common goal in ChIP-seq experiments is to **identify changes in protein binding patterns** between conditions, an application known as differential binding.
 
 Effective analysis of ChIP-seq data requires sufficient coverage by sequence reads (**sequencing depth**). It mainly depends on the size of the genome, and the number and size of the binding sites of the protein.
 
-- For mammalian (or any species with a relatively large genome) transcription factors (TFs) and chromatin modifications such as enhancer-associated histone marks: **20 million reads** are adequate
+-   For mammalian (or any species with a relatively large genome) transcription factors (TFs) and chromatin modifications such as enhancer-associated histone marks: **20 million reads** are adequate
 
-- Proteins with more binding sites (e.g., RNA Pol II) or more promiscuous factors (e.g. CTCF) need more reads, up to **60 million** for mammalian ChIP-seq
+-   Proteins with more binding sites (e.g., RNA Pol II) or more promiscuous factors (e.g. CTCF) need more reads, up to **60 million** for mammalian ChIP-seq
 
-- Sequencing depth rules of thumb: \>10M reads for *narrow* peaks, \>20M for *broad* peaks (you will understand better this concept later in the Peak Calling section)
+-   Sequencing depth rules of thumb: \>10M reads for *narrow* peaks, \>20M for *broad* peaks (you will understand better this concept later in the *Peak Calling section*)
 
-- Long & paired-end reads are useful, but not essential - they may however help in specific, high-precision binding site discovery
+Another consideration is about sequence modality: long & paired-end reads are useful, but not essential - they may however help in specific, high-precision binding site discovery. Most of the times, ChIP-seq can be performed in **single-end** mode.
 
-- Replicates: Unlike with RNA-Seq, more than two replicates do not significantly increase the number of identified peaks
+About the number of **technical replicates**, unlike with RNA-Seq, more than two replicates do not significantly increase the number of identified peaks.
 
-A successful ChIP-seq experiment must have the appropriate **controls** to optimize signal-noise ratio. Well-made controls help eliminate false positives. In fact, there is always some signal on open chromatin. This may be due to multiple factors, but can be boiled down to three reasons: 
-A) non-specific binding from the antibody can precipitate random sequences 
-B) digestion, sonication, or any other method of shearing will introduce biases towards certain sequences 
-C) different operators will perform the same protocol slightly differently, yielding higher or lower signal/noise ratios.
+#### ChIP controls
+
+A successful ChIP-seq experiment must have the appropriate **controls** to optimize signal-noise ratio. Well-made controls help **eliminate false positives**. In fact, there is always some signal on open chromatin. This may be due to multiple factors, but can be boiled down to three reasons: **A)** non-specific binding from the antibody can precipitate random sequences **B)** digestion, sonication, or any other method of shearing will introduce biases towards certain sequences **C)** different operators will perform the same protocol slightly differently, yielding higher or lower signal/noise ratios.
+
 The following controls are often used to abate these biases:
 
-- An "**input**" DNA sample in which a library is generated from DNA that has been cross-linked and sonicated but not immuno-precipitated. It controls for the **bias introduced before even immunoprecipitating**, i.e. from sonication.
+-   An "**input**" DNA sample in which a library is generated from DNA that has been cross-linked and sonicated but not immuno-precipitated. It controls for the **bias introduced before even immunoprecipitating**, i.e. from sonication.
 
-- An **IgG** "mock"-ChIP, using an antibody that will not bind to nuclear proteins and should generate random immuno-precipitated DNA. It controls for **non-specific sequences**  that precipitate alongside the target protein, but are not bound by it.
+-   An **IgG** "mock"-ChIP, using an antibody that will not bind to nuclear proteins and should generate random immuno-precipitated DNA. It controls for **non-specific sequences** that precipitate alongside the target protein, but are not bound by it.
 
-- A **Spike-In** can also be introduced, using different genomes (e.g. Drosophila in a Human experiment) to control for handling **variability** between users, or batch differences between reagents. This helps dampen these confounders.
+-   A **Spike-In** can also be introduced, using different genomes (e.g. Drosophila in a Human experiment) to control for handling **variability** between users, or batch differences between reagents. This helps dampen these confounders.
 
-> Input DNA control is ideal in most of the cases. Indeed, one problem with IgG control is that if too little DNA is recovered after immuno-precipitation, sequencing library will be of low complexity and binding sites identified using this control could be biased. Read [this biostars post](https://www.biostars.org/p/15817/) for discussion.
-
+> **Input DNA control is ideal** in most of the cases. Indeed, one problem with IgG control is that if too little DNA is recovered after immuno-precipitation, sequencing library will be of low complexity and binding sites identified using this control could be biased. Read [this biostars post](https://www.biostars.org/p/15817/) for discussion.
 
 ## Next Generation Sequencing
 
@@ -606,11 +598,11 @@ Its main object was to explore the way cancer cells use enhancers as opposed to 
 
 ![](../pics/graphical_abstract_yap_taz_2.png)
 
-In this workshop, we will re-analyze a portion of the ChIP-seq dataset used in the paper, pertaining to **Histone 3 Lysine 27 Acetylation** - a marker of activation present at active regulatory sequences, enhancers and promoters alike.
+> ✅ In this workshop, we will re-analyze a portion of the ChIP-seq dataset used in the paper, pertaining to **Histone 3 Lysine 27 Acetylation** - a marker of activation present at active regulatory sequences, enhancers and promoters alike.
 
 ## Load and explore the dataset
 
-In order to speed up the computations and keep memory usage low, we have **subset the dataset only to chromosome 12**. It will be interesting to see if we can recapitulate similar analyses by looking only at a single chromosome 🤓
+In order to speed up the computations and keep memory usage low, we have **subset the dataset only to chromosome 12**. It will be interesting to see if we can recapitulate similar analyses by looking only at a single chromosome 🤓.
 
 Data are in this public Google Drive [folder](https://drive.google.com/drive/folders/1-9yQESQn3JOvP9jqoWcqfgOZyqAC5M6J?usp=sharing). You will find:
 
