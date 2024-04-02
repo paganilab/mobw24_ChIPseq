@@ -1,0 +1,209 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Workshop Introduction},
+  pdfauthor={Carolina Dossena},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Workshop Introduction}
+\author{Carolina Dossena}
+\date{last-modified}
+
+\begin{document}
+\maketitle
+
+Welcome! This workshop has been created as part of the
+\href{https://www.unimi.it/it/corsi/insegnamenti-dei-corsi-di-laurea/2024/molecular-biology-applied-biotechnology}{Unimi
+course} ``\emph{Molecular Biology applied to Biotechnology}''. The aim
+is to introduce you to the world of bioinformatics and to some of the
+most important concepts related to the \textbf{analysis of Next
+Generation Sequencing (NGS) data}.
+
+In particular, you will be guided through the main steps of a
+\textbf{ChIP-seq experiment}, starting from the experimental design and
+its major challenges and then diving into a ChIP-seq analysis workflow!
+The hands-on part is based on \texttt{R} and for this reason an
+essential introduction to this programming language will be provided as
+well.
+
+The dataset used in this workshop is taken from
+\href{https://www.nature.com/articles/s41467-021-22544-y\#MOESM1}{our
+study} published on \emph{Nature Communications} on 2021,
+``\emph{Epigenomic landscape of human colorectal cancer unveils an
+aberrant core of pan-cancer enhancers orchestrated by YAP/TAZ}''. Part
+of the adventure will be dedicated to trying to reproduce some relevant
+analyses and plots published as results!
+
+\hypertarget{learning-objectives}{%
+\section{Learning Objectives}\label{learning-objectives}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Get an overview of the ChIP-seq \textbf{technology}
+\item
+  Understand the best practices for the \textbf{design} of a ChIP-seq
+  experiment
+\item
+  Get familiar with the steps of a standard \textbf{ChIP-seq data
+  analysis pipeline}
+\item
+  Know the most useful \textbf{public resources} for the analysis and
+  exploration of \textbf{genomic data}
+\end{enumerate}
+
+\hypertarget{workshop-schedule}{%
+\section{Workshop Schedule}\label{workshop-schedule}}
+
+This workshop is intended as a three-day tutorial. Each day will be
+dedicated to specific activities:
+
+\hypertarget{day-1}{%
+\subsubsection{Day 1}\label{day-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  Setup Rstudio or Posit Cloud
+\item
+  Get familiar with R and create our R environment
+\item
+  Learn about ChIP-seq experimental design and technology
+\item
+  Describe the main steps of ChIP-seq (and NGS) data \emph{core}
+  processing
+\item
+  Download the dataset
+\end{itemize}
+
+\hypertarget{day-2}{%
+\subsubsection{Day 2}\label{day-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  Data normalization with \texttt{edgeR}
+\item
+  Diagnostic and exploratory analysis on the data
+\item
+  Differential analysis for ChiP-seq data
+\item
+  Visualization of the results
+\end{itemize}
+
+\hypertarget{day-3}{%
+\subsubsection{Day 3}\label{day-3}}
+
+\begin{itemize}
+\tightlist
+\item
+  Downstream analyses on an interesting subset of data, including:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Gene ontology with \texttt{gProfiler}
+  \item
+    Motif Analysis with \texttt{MEME}
+  \end{itemize}
+\item
+  Explore different online resources dedicated to ChIP-seq data and NGS
+  data analysis
+\end{itemize}
+
+\hypertarget{the-teaching-board}{%
+\section{The Teaching Board}\label{the-teaching-board}}
+
+🧑🔬 \texttt{Jacopo\ Arrigoni}
+(\href{mailto:jacopo.arrigoni@ifom.eu}{\nolinkurl{jacopo.arrigoni@ifom.eu}})
+
+👩💻 \texttt{Carolina\ Dossena}
+(\href{mailto:carolina.dossena@ifom.eu}{\nolinkurl{carolina.dossena@ifom.eu}})
+
+\hypertarget{credits}{%
+\section{Credits}\label{credits}}
+
+This workshop was inspired by other tutorials on ChIP-seq data analysis
+(\href{https://www.bioconductor.org/help/course-materials/2016/CSAMA/lab-5-chipseq/Epigenetics.html}{the
+Bioconductor course}, the teaching material from the
+\href{https://github.com/hbctraining/Intro-to-ChIPseq/blob/master/schedule/3-day.md}{HBC
+training} and the
+\href{http://biocluster.ucr.edu/~rkaundal/workshops/R_feb2016/ChIPseq/ChIPseq.html}{tutorial
+from UCR}. \textbf{Mattia Toninelli}
+(\href{mailto:mattia.toninelli@ifom.eu}{\nolinkurl{mattia.toninelli@ifom.eu}})
+helped with the development of this site. The design of the analyses and
+the codes have been generated together with \textbf{Michaela Fakiola}
+(\href{mailto:michaela.fakiola@ifom.eu}{\nolinkurl{michaela.fakiola@ifom.eu}}).
+
+\hypertarget{license}{%
+\section{License}\label{license}}
+
+All of the material in this course is under a
+\href{https://creativecommons.org/licenses/by/4.0/}{Creative Commons
+Attribution license} (\emph{CC BY 4.0}) which permits unrestricted use,
+distribution, and reproduction in any medium, provided the original
+author and source are credited.
+
+\end{document}

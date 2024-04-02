@@ -1,0 +1,70 @@
+---
+title: ' Workshop Introduction'
+author: "Carolina Dossena"
+date: "last-modified"
+output:
+  html_document: default
+  pdf_document: default
+always_allow_html: yes
+editor_options:
+  markdown:
+    wrap: sentence
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(engine = 'R', echo = TRUE, fig.align = 'center', warning = FALSE, message = FALSE)
+```
+
+Welcome! This workshop has been created as part of the [Unimi course](https://www.unimi.it/it/corsi/insegnamenti-dei-corsi-di-laurea/2024/molecular-biology-applied-biotechnology) "*Molecular Biology applied to Biotechnology*".
+The aim is to introduce you to the world of bioinformatics and to some of the most important concepts related to the **analysis of Next Generation Sequencing (NGS) data**. 
+
+In particular, you will be guided through the main steps of a **ChIP-seq experiment**, starting from the experimental design and its major challenges and then diving into a ChIP-seq analysis workflow!
+The hands-on part is based on `R` and for this reason an essential introduction to this programming language will be provided as well.
+
+The dataset used in this workshop is taken from [our study](https://www.nature.com/articles/s41467-021-22544-y#MOESM1) published on *Nature Communications* on 2021, "*Epigenomic landscape of human colorectal cancer unveils an aberrant core of pan-cancer enhancers orchestrated by YAP/TAZ*". Part of the adventure will be dedicated to trying to reproduce some relevant analyses and plots published as results!
+
+# Learning Objectives
+
+1. Get an overview of the ChIP-seq assay and its significance in genomic research
+2. Understand applications and key insights derived from ChIP-seq experiments
+3. Familiarize with basic R functionalities
+5. Describe the core steps of a **ChIP-seq data analysis pipeline**
+5. Learn how to navigate and utilize **public resources** for the analysis and exploration of **genomic data**
+
+# Workshop Schedule
+
+This workshop is intended as a three-day tutorial. Each day will be dedicated to specific activities:
+
+### Day 1
+
+- Introduction to ChIP-seq
+- Setting up R environment
+- Understanding ChIP-seq (and NGS) data _core_ processing
+- Dataset introduction and exploration
+
+### Day 2
+
+- Data normalization with `edgeR`
+- Diagnostic and exploratory analysis
+- Differential analysis for ChiP-seq data
+- Visualization of the results
+
+### Day 3
+
+- Downstream analyses on interesting subset of data, including:
+  - Gene ontology with `gProfiler`
+  - Motif Analysis with `MEME`
+- Exploration of publicly available resources for accessing genomic data
+
+# Us
+
+🧑🔬 `Jacopo Arrigoni` (jacopo.arrigoni@ifom.eu)
+
+👩💻 `Carolina Dossena` (carolina.dossena@ifom.eu)
+
+# Credits
+
+This workshop was inspired by other tutorials on ChIP-seq data analysis ([the Bioconductor course](https://www.bioconductor.org/help/course-materials/2016/CSAMA/lab-5-chipseq/Epigenetics.html), the teaching material from the [HBC training](https://github.com/hbctraining/Intro-to-ChIPseq/blob/master/schedule/3-day.md) and the [tutorial from UCR](http://biocluster.ucr.edu/~rkaundal/workshops/R_feb2016/ChIPseq/ChIPseq.html). **Mattia Toninelli** (mattia.toninelli@ifom.eu) helped with the development of this site. The design of the analyses and the codes have been generated together with **Michaela Fakiola** (michaela.fakiola@ifom.eu).
+
+# License
+All of the material in this course is under a [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (_CC BY 4.0_) which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.

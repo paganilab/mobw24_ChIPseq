@@ -1,0 +1,40 @@
+project:
+  type: website
+  output-dir: docs # For pages publishing
+
+# Top navbar
+website:
+#  favicon: ./pics/net_icon.png
+  title: "2024 Bioinformatics Workshop"
+  navbar:
+#    logo: ./pics/net_icon.png
+    left:
+      - href: ./pages/index.Rmd
+        text: Home
+      - href: ./pages/Day1.Rmd
+        text: Day 1
+#      - href: ./pages/day2.Rmd
+#        text: Day 2
+#      - href: ./pages/day3.Rmd
+#        text: Day 3
+#      - href: ./pages/help.Rmd
+#        text: Help  
+    right: 
+      - icon: github
+        href: https://github.com/paganilab
+      - icon: twitter
+        href: https://twitter.com/LabPagani
+  page-footer: "Copyright 2024, Jacopo Arrigoni & Carolina Dossena"
+
+# Themes, can be changed with .css files and .scss 
+format:
+  html:
+    theme: 
+      - yeti
+#      - sass_styling.scss
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+
+# Code theme
+highlight-style: github
