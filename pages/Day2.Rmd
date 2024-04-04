@@ -380,11 +380,12 @@ percentVar <- round(100 * summary(pcs)$importance[2,])
 pcaData <- as.data.frame(pcs$rotation) %>% merge(samples, by=0)
 
 # Plot (this time with ggplot2!!)
-ggplot(pcaData, aes(PC1, PC2, color=groups, shape=Tissue)) +
+ggplot(pcaData, aes(PC1, PC2, color=groups)) +
   geom_point(size=3) +
   xlab(paste0("PC1: ",percentVar[1],"% variance")) +
   ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
-  theme_classic()
+  theme_linedraw()+
+  theme(aspect.ratio=1)
 ```
 
 
