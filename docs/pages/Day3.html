@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Carolina Dossena">
-<meta name="dcterms.date" content="2024-04-02">
 
-<title>2024 Bioinformatics Workshop - Workshop Introduction</title>
+<title>2024 Bioinformatics Workshop</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -90,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../pages/index.html" aria-current="page"> 
+    <a class="nav-link" href="../pages/index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -125,118 +123,16 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
-  <li><a href="#workshop-schedule" id="toc-workshop-schedule" class="nav-link" data-scroll-target="#workshop-schedule">Workshop Schedule</a>
-  <ul class="collapse">
-  <li><a href="#day-1" id="toc-day-1" class="nav-link" data-scroll-target="#day-1">Day 1</a></li>
-  <li><a href="#day-2" id="toc-day-2" class="nav-link" data-scroll-target="#day-2">Day 2</a></li>
-  <li><a href="#day-3" id="toc-day-3" class="nav-link" data-scroll-target="#day-3">Day 3</a></li>
-  </ul></li>
-  <li><a href="#us" id="toc-us" class="nav-link" data-scroll-target="#us">Us</a></li>
-  <li><a href="#credits" id="toc-credits" class="nav-link" data-scroll-target="#credits">Credits</a></li>
-  <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">License</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Workshop Introduction</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Carolina Dossena </p>
-          </div>
-  </div>
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 2, 2024</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
 
 
-</header>
-
-
-<p>Welcome! This workshop has been created as part of the <a href="https://www.unimi.it/it/corsi/insegnamenti-dei-corsi-di-laurea/2024/molecular-biology-applied-biotechnology">Unimi course</a> “<em>Molecular Biology applied to Biotechnology</em>”. The aim is to introduce you to the world of bioinformatics and to some of the most important concepts related to the <strong>analysis of Next Generation Sequencing (NGS) data</strong>.</p>
-<p>In particular, you will be guided through the main steps of a <strong>ChIP-seq experiment</strong>, starting from the experimental design and its major challenges and then diving into a ChIP-seq analysis workflow! The hands-on part is based on <code>R</code> and for this reason an essential introduction to this programming language will be provided as well.</p>
-<p>The dataset used in this workshop is taken from <a href="https://www.nature.com/articles/s41467-021-22544-y#MOESM1">our study</a> published on <em>Nature Communications</em> on 2021, “<em>Epigenomic landscape of human colorectal cancer unveils an aberrant core of pan-cancer enhancers orchestrated by YAP/TAZ</em>”. Part of the adventure will be dedicated to trying to reproduce some relevant analyses and plots published as results!</p>
-<section id="learning-objectives" class="level1">
-<h1>Learning Objectives</h1>
-<ol type="1">
-<li>Get an overview of the ChIP-seq assay and its significance in genomic research</li>
-<li>Understand applications and key insights derived from ChIP-seq experiments</li>
-<li>Familiarize with basic R functionalities</li>
-<li>Describe the core steps of a <strong>ChIP-seq data analysis pipeline</strong></li>
-<li>Learn how to navigate and utilize <strong>public resources</strong> for the analysis and exploration of <strong>genomic data</strong></li>
-</ol>
-</section>
-<section id="workshop-schedule" class="level1">
-<h1>Workshop Schedule</h1>
-<p>This workshop is intended as a three-day tutorial. Each day will be dedicated to specific activities:</p>
-<section id="day-1" class="level3">
-<h3 class="anchored" data-anchor-id="day-1">Day 1</h3>
-<ul>
-<li>Introduction to ChIP-seq</li>
-<li>Setting up R environment</li>
-<li>Understanding ChIP-seq (and NGS) data <em>core</em> processing</li>
-<li>Dataset introduction and exploration</li>
-</ul>
-</section>
-<section id="day-2" class="level3">
-<h3 class="anchored" data-anchor-id="day-2">Day 2</h3>
-<ul>
-<li>Data normalization with <code>edgeR</code></li>
-<li>Diagnostic and exploratory analysis</li>
-<li>Differential analysis for ChiP-seq data</li>
-<li>Visualization of the results</li>
-</ul>
-</section>
-<section id="day-3" class="level3">
-<h3 class="anchored" data-anchor-id="day-3">Day 3</h3>
-<ul>
-<li>Downstream analyses on interesting subset of data, including:
-<ul>
-<li>Gene ontology with <code>gProfiler</code></li>
-<li>Motif Analysis with <code>MEME</code></li>
-</ul></li>
-<li>Exploration of publicly available resources for accessing genomic data</li>
-</ul>
-</section>
-</section>
-<section id="us" class="level1">
-<h1>Us</h1>
-<p>🧑🔬 <code>Jacopo Arrigoni</code> (jacopo.arrigoni@ifom.eu)</p>
-<p>👩💻 <code>Carolina Dossena</code> (carolina.dossena@ifom.eu)</p>
-</section>
-<section id="credits" class="level1">
-<h1>Credits</h1>
-<p>This workshop was inspired by other tutorials on ChIP-seq data analysis (<a href="https://www.bioconductor.org/help/course-materials/2016/CSAMA/lab-5-chipseq/Epigenetics.html">the Bioconductor course</a>, the teaching material from the <a href="https://github.com/hbctraining/Intro-to-ChIPseq/blob/master/schedule/3-day.md">HBC training</a> and the <a href="http://biocluster.ucr.edu/~rkaundal/workshops/R_feb2016/ChIPseq/ChIPseq.html">tutorial from UCR</a>. For the R fundamentals part look at this <a href="https://bookdown.org/daniel_dauber_io/r4np_book/">R book for beginners</a>. <strong>Mattia Toninelli</strong> (mattia.toninelli@ifom.eu) helped with the development of this site and some course sections. The design of the analyses and the codes have been generated together with <strong>Michaela Fakiola</strong> (michaela.fakiola@ifom.eu).</p>
-</section>
-<section id="license" class="level1">
-<h1>License</h1>
-<p>All of the material in this course is under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution license</a> (<em>CC BY 4.0</em>) which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</p>
-
-
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

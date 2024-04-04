@@ -13,8 +13,8 @@ website:
         text: Home
       - href: ./pages/Day1.Rmd
         text: Day 1
-#      - href: ./pages/day2.Rmd
-#        text: Day 2
+      - href: ./pages/day2.Rmd
+        text: Day 2
 #      - href: ./pages/day3.Rmd
 #        text: Day 3
 #      - href: ./pages/help.Rmd

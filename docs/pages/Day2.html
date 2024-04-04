@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.551">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2024 Bioinformatics Workshop - Day 2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">2024 Bioinformatics Workshop</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../pages/index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../pages/Day1.html"> 
+<span class="menu-text">Day 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href=".././pages/day2.Rmd"> 
+<span class="menu-text">Day 2</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/paganilab"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/LabPagani"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link active" data-scroll-target="#objectives">Objectives</a></li>
+  <li><a href="#brief-recap-of-the-dataset" id="toc-brief-recap-of-the-dataset" class="nav-link" data-scroll-target="#brief-recap-of-the-dataset">Brief recap of the dataset</a></li>
+  <li><a href="#data-normalization-removing-uninteresting-differences" id="toc-data-normalization-removing-uninteresting-differences" class="nav-link" data-scroll-target="#data-normalization-removing-uninteresting-differences">Data Normalization: removing uninteresting differences</a></li>
+  <li><a href="#about-the-edger-package" id="toc-about-the-edger-package" class="nav-link" data-scroll-target="#about-the-edger-package">About the <code>edgeR</code> Package</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  </ul></li>
+  <li><a href="#create-a-dgelist-object-with-counts-sample-metadata-and-design-formula" id="toc-create-a-dgelist-object-with-counts-sample-metadata-and-design-formula" class="nav-link" data-scroll-target="#create-a-dgelist-object-with-counts-sample-metadata-and-design-formula">Create a DGEList object with counts, sample metadata and design formula</a>
+  <ul class="collapse">
+  <li><a href="#behind-the-design-formula" id="toc-behind-the-design-formula" class="nav-link" data-scroll-target="#behind-the-design-formula">Behind The Design Formula</a></li>
+  </ul></li>
+  <li><a href="#normalizing-count-data" id="toc-normalizing-count-data" class="nav-link" data-scroll-target="#normalizing-count-data">Normalizing Count Data</a>
+  <ul class="collapse">
+  <li><a href="#normalization-discussion" id="toc-normalization-discussion" class="nav-link" data-scroll-target="#normalization-discussion">Normalization discussion</a></li>
+  </ul></li>
+  <li><a href="#transforming-count-data-for-visualization-purposes" id="toc-transforming-count-data-for-visualization-purposes" class="nav-link" data-scroll-target="#transforming-count-data-for-visualization-purposes">Transforming Count Data for visualization purposes</a></li>
+  <li><a href="#assessing-sample-to-sample-relationships" id="toc-assessing-sample-to-sample-relationships" class="nav-link" data-scroll-target="#assessing-sample-to-sample-relationships">Assessing Sample-to-sample Relationships</a>
+  <ul class="collapse">
+  <li><a href="#hierarchical-clustering" id="toc-hierarchical-clustering" class="nav-link" data-scroll-target="#hierarchical-clustering">Hierarchical clustering</a></li>
+  <li><a href="#sample-to-sample-distances" id="toc-sample-to-sample-distances" class="nav-link" data-scroll-target="#sample-to-sample-distances">Sample-to-sample Distances</a></li>
+  <li><a href="#dimensionality-reduction-with-principal-component-analysis-pca" id="toc-dimensionality-reduction-with-principal-component-analysis-pca" class="nav-link" data-scroll-target="#dimensionality-reduction-with-principal-component-analysis-pca">Dimensionality reduction with Principal Component Analysis (PCA)</a></li>
+  </ul></li>
+  <li><a href="#online-resources-and-databases-for-omics-data" id="toc-online-resources-and-databases-for-omics-data" class="nav-link" data-scroll-target="#online-resources-and-databases-for-omics-data">Online Resources and Databases for omics data</a>
+  <ul class="collapse">
+  <li><a href="#poor-mans-guide-to-omics" id="toc-poor-mans-guide-to-omics" class="nav-link" data-scroll-target="#poor-mans-guide-to-omics">Poor man’s guide to omics</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Day 2</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<ul>
+<li>Data normalization with <code>edgeR</code></li>
+<li>Diagnostic and exploratory analysis</li>
+<li>Resources for ChIP-seq and other omics data</li>
+<li>Inspecting data with Integrative Genome Viewer</li>
+</ul>
+</section>
+<section id="brief-recap-of-the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="brief-recap-of-the-dataset">Brief recap of the dataset</h2>
+<p>First of all, let’s make a recap on the dataset that we are going to analyze.</p>
+<p>Each row of the <code>counts</code> table corresponds to a genomic interval within chromosome 12. Yesterday, we discussed about a standard analysis that requires a peak caller (such as <strong>MACS</strong>) used on the aligned reads to call peaks. While having called peaks for the sample is useful in a variety of ways, it is possible to perform a quantitative analysis without using called peaks. For example, in some cases, the regions of interest may be known in advance (such as a list known gene promoters).</p>
+<p>This is actually our case, because the genomic regions that we’ll analyze are the active enhancers defined by <a href="https://www.nature.com/articles/nprot.2017.124">ChromHMM</a>. Indeed, using this machine-learning tool, we have characterized all the chromatin states in cells from CRC and normal colon organoids, by combining multiple histone mark ChIP-seq profiles including H3K27 acetylation. Among the different chromatin states, we were able to identify <strong>genomic regions with active enhancer features</strong>. On these regions, we counted reads from ChIP-seq on H3K27Ac for each organoid sample, and <strong>we have already did all these steps for you</strong> to speed up the process. <em>NB: This is a compute-intensive step that might have take too long to run in the workshop!</em> What you can see is the table with the region by sample counts.</p>
+</section>
+<section id="data-normalization-removing-uninteresting-differences" class="level2">
+<h2 class="anchored" data-anchor-id="data-normalization-removing-uninteresting-differences">Data Normalization: removing uninteresting differences</h2>
+<p>Since we want to highlight interesting biological differences between groups of samples in our dataset, the first thing to do is to ensure that we take into account and minimize all of the <em>uninteresting</em> differences between samples. This is accomplished by <strong>normalizing the data</strong>, a mandatory step before any differential analysis, if we want to make counts <strong>comparable both across samples and across different peaks</strong>, without any unwanted <em>bias</em>.</p>
+<p>The main differences in the dataset that we want to normalize for are:</p>
+<ol type="1">
+<li>the <strong>Sequencing Depth</strong> (expressed as the total amount of uniquely mapped reads in a sample): even between samples that were sequenced in the same sequencing run as part of the same experiments (but even more likely if samples have been generated in <strong>multiple <em>batches</em></strong>), differences in the sequencing depth are expected. The reason why it’s important to take into account them is that these differences will reflect also at the level of the single genes: differences in sequencing depths can erroneously lead to the perception of genomic intervals having differential signals.</li>
+</ol>
+<center>
+<img src="https://hbctraining.github.io/DGE_workshop/img/normalization_methods_depth.png" width="500">
+</center>
+<ol start="2" type="1">
+<li><strong>Genomic interval length</strong>: this is a potential bias if we want to <strong>compare across group of intervals</strong> other than across samples. Indeed, the larger the genomic region, the higher the amount of reads that will be counted on it, and viceversa.</li>
+</ol>
+<center>
+<img src="https://hbctraining.github.io/DGE_workshop/img/normalization_methods_length.png" width="300">
+</center>
+<p>During the years, <strong>many approaches</strong> to data normalization have been attempted. In the table below, we summarized three common methods that can be employed to account for differences in library size (i.e.&nbsp;the sequencing depth) and the genomic interval length.</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Normalization Method</strong></th>
+<th><strong>Accounted Factors</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CPM (counts per million)</td>
+<td>Sequencing depth</td>
+<td>Counts scaled by total read number</td>
+</tr>
+<tr class="even">
+<td>TPM (transcripts per million)</td>
+<td>Sequencing depth and gene length</td>
+<td>Counts per length of transcript (kb) per million mapped reads</td>
+</tr>
+<tr class="odd">
+<td>FPKM/RPKM</td>
+<td>Sequencing depth and gene length</td>
+<td>Counts per kilobase of exon mapped reads per million mapped reads</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p>Notice the term “transcript” for TPM or “exon” in the method descriptions. Historically, these methods have been developed for RNA-seq data, dealing with <strong>gene expression counts</strong>, but they can be extended for other sequencing technologies. See also the <em>Normalization Discussion</em> section.</p>
+</blockquote>
+<p>CPM, TPM and FPKM/RPKM are considered <strong>simple normalization methods</strong>, that can be useful to scale NGS data. However, there are also newer and more sophisticated approached have been developed to take into account technical variability and sample-specific biases. Two of these are the <strong>DESeq2’s median of ratios</strong> and the <strong>edgeR’s trimmed mean of M values</strong>. These are indeed more <strong>advanced statistical methods</strong> used for normalization and differential analysis in multiple sequencing data, including RNA-seq and ATAC-seq.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th><strong>Normalization Method</strong></th>
+<th><strong>Accounted Factors</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>DESeq2</em>’s median of ratios<sup><a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">1</a></sup></td>
+<td>Sequencing depth and RNA composition</td>
+<td>Counts are divided by a sample-specific size factor</td>
+</tr>
+<tr class="even">
+<td><em>edgeR</em>’s trimmed mean of M values<sup><a href="https://bioconductor.org/packages/release/bioc/html/edgeR.html">2</a></sup></td>
+<td>Sequencing depth, RNA composition and gene length</td>
+<td>Weighted trimmed mean of the log ratio of expression between samples</td>
+</tr>
+</tbody>
+</table>
+<p>As you can see from the table, with respect to the other methods, these ones can correct for one additional unwanted difference across libraries: the <strong>Composition Bias</strong>. As the name suggests, composition biases are formed when there are differences in the composition of sequences across libraries. <strong>Highly enriched regions consume more sequencing resources</strong> and thereby <strong>suppress the representation of other regions</strong>. Scaling by library size fails to correct for this as composition biases can still occur in libraries of the same size.</p>
+<center>
+<img src="https://hbctraining.github.io/DGE_workshop/img/normalization_methods_composition.png" width="500">
+</center>
+<p>Out of all these, we will use one of the more advanced ones provided in the <code>edgeR</code> package which will be now introduced.</p>
+</section>
+<section id="about-the-edger-package" class="level2">
+<h2 class="anchored" data-anchor-id="about-the-edger-package">About the <code>edgeR</code> Package</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>One of the aims of this workshop is to understand which genomic regions have a <strong>differential signal for H3K27Ac</strong> in our dataset, that is, have a <strong>difference in enhancer activty</strong>. In particular, we want to identify regions that are gaining more of this histone modification in CRC organoid samples, that might be <strong>enhancer regions with increased activity compared to normal organoids</strong>. To do so, we will compare H3K27Ac levels across samples and <strong>statistically assess and quantify differences</strong> arising between the conditions represented by our categories of samples (i.e., <strong>normal crypts organoids and CRC organoids</strong>). <code>EdgeR</code> is a widely used package for normalization and differential analysis on bulk sequencing data.</p>
+<blockquote class="blockquote">
+<p><strong>Detailed explanations of the statistical procedures implemented in the package are available in the package’s <a href="https://bioconductor.org/packages/release/bioc/html/edgeR.html"><em>vignette</em></a>.</strong></p>
+</blockquote>
+<p>We will start by loading the packages installed yesterday during the Set up section.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the package</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(edgeR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can have a look at all the functions contained in the <code>edgeR</code> package by typing the following command:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This should open a popup window in the lower right part of the screen displaying the functions in the package</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>??edgeR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="create-a-dgelist-object-with-counts-sample-metadata-and-design-formula" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-dgelist-object-with-counts-sample-metadata-and-design-formula">Create a DGEList object with counts, sample metadata and design formula</h2>
+<p>In order for the package to read and understand our data and correctly perform the analysis, we need to <strong>organize our data</strong> in a way that the functions of the package can handle. This <strong>new object</strong> that we are going to create is called <code>DGEList</code> and there is a utility function to create one starting from the <em>ingredients</em> we currently have, (1) a table of counts (our counts object), (2) a table with sample information (our samples object) and (3) one last thing that we need to decide in order tell the package what comparisons we value the most, this is called a <strong>design formula</strong>.</p>
+<section id="behind-the-design-formula" class="level3">
+<h3 class="anchored" data-anchor-id="behind-the-design-formula">Behind The Design Formula</h3>
+<p>The design formula should <strong>contain the name of a column of interest in our table of samples</strong> (that we can call <strong>factor</strong>) which stores the information related to the <strong>levels</strong> (or categories) we want to contrast. Let’s say that we have a dataset with two conditions (condition_1 vs condition_2) that we want to compare. The samples table will look like this, with three replicates for each of the two conditions:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Sample Code</th>
+<th>Patient</th>
+<th>Condition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SA1</td>
+<td>Pt1</td>
+<td>Condition_1</td>
+</tr>
+<tr class="even">
+<td>SA2</td>
+<td>Pt2</td>
+<td>Condition_1</td>
+</tr>
+<tr class="odd">
+<td>SA3</td>
+<td>Pt3</td>
+<td>Condition_1</td>
+</tr>
+<tr class="even">
+<td>SA4</td>
+<td>Pt1</td>
+<td>Condition_2</td>
+</tr>
+<tr class="odd">
+<td>SA5</td>
+<td>Pt2</td>
+<td>Condition_2</td>
+</tr>
+<tr class="even">
+<td>SA6</td>
+<td>Pt3</td>
+<td>Condition_2</td>
+</tr>
+</tbody>
+</table>
+<section id="paired-analyses" class="level4">
+<h4 class="anchored" data-anchor-id="paired-analyses">Paired Analyses</h4>
+<p>The optimal setting for the analysis (decided experimentally) is to have paired samples. This might be a somewhat difficult concept to grasp, but for our table above this means that every Patient <strong>contributes equally to the two categories</strong> in the Condition columns that we are interested in. In this setting, we are fully capable of exploiting the statistics behind the tools we use for differential analysis by correcting for the uninteresting differences arising between patients. This aspect greatly helps the analysis and improves the statistical validity of the results.</p>
+<p>Remember, this is something achieved by deciding the experimental setting <strong>beforehand</strong>! Ideally this should be done through a collaborative effort between bioinformaticians/statisticians and bench scientists!</p>
+<p>If we are interested in performing a differential expression analysis comparing <code>condition_1</code> versus <code>condition_2</code>, then our design formula should specify the <code>Condition</code> factor.</p>
+<blockquote class="blockquote">
+<p>💡 <strong>What is the column that we are interested in when specifying the design formula using in our <code>samples</code> table?</strong></p>
+</blockquote>
+<p>Now that we also understand the design formula, we can create the <code>DGEList</code> object with the data that we loaded beforehand, but first we need to check that the columns of the <code>counts</code> table are in the same order of the rows of the <code>sample</code> table, this is important since <strong>we want to be sure that the right levels of expression are associated to the right sample</strong>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">rownames</span>(samples) <span class="sc">==</span> <span class="fu">colnames</span>(counts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>Further, we will get rid of non-useful columns in our sample metadata:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(samples, <span class="sc">-</span><span class="fu">c</span>(sizeFactor, Treatment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And now we can build the object:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a design formula. Notice that we are creating an object called "factor"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sample_group <span class="ot">&lt;-</span> <span class="fu">factor</span>(samples<span class="sc">$</span>groups, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"N_crypts"</span>, <span class="st">"K_org"</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> sample_group)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a `DGEList` object and call it dds</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DGEList</span>(<span class="at">counts =</span> counts, <span class="at">samples =</span> samples)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's save the `design` in the dds object</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>dds<span class="sc">$</span>design <span class="ot">&lt;-</span> design</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Remeber that <code>dds</code> is just a <strong>list</strong> in R which can be updated with different elements.</p>
+<p>We can now remove the counts table from our R environment since that information is stored in our DGEList object now. This is useful to save on memory space!</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove original `counts` table to save memory space</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(counts)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Great! You have created a DGEList object which we called dds, this <strong>contains all the information related to the counts table and the sample information table in one spot</strong>. We can have a look at the sample information table and the counts table in the dds object like so:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the table with sample information</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dds<span class="sc">$</span>samples)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">group</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">lib.size</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">norm.factors</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">groups</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Tissue</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">SampleID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SQ_2157</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">69284</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">4KE</td>
+<td style="text-align: left;">SQ_2157</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SQ_1990</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">96388</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">8KE</td>
+<td style="text-align: left;">SQ_1990</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SQ_2010</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">112029</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">10KE</td>
+<td style="text-align: left;">SQ_2010</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SQ_2163</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">169859</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">13KE</td>
+<td style="text-align: left;">SQ_2163</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SQ_2204</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">108070</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">18KE</td>
+<td style="text-align: left;">SQ_2204</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SQ_2212</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">162626</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">11KW</td>
+<td style="text-align: left;">SQ_2212</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<p>We can see that some new columns were added to the samples table present in our DGEList object when we created it (the <code>group</code>, <code>lib.size</code>, <code>norm.factors</code> columns)! These will be used by edgeR later on for data normalization!</p>
+<p>We can also take a look at the table containing the counts, which is just another element of our DGEList object:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the table with count information</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dds<span class="sc">$</span>counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2157</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_1990</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2010</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2163</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2204</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2212</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2216</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2222</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2288</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2303</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2298</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2145</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">GSM2058021</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">GSM2058022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">GSM2058023</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">reg_6364</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">85</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">185</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reg_6365</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">79</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">216</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">reg_6366</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">169</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reg_6367</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">132</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">188</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">reg_6368</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">56</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reg_6369</td>
+<td style="text-align: right;">184</td>
+<td style="text-align: right;">304</td>
+<td style="text-align: right;">215</td>
+<td style="text-align: right;">661</td>
+<td style="text-align: right;">278</td>
+<td style="text-align: right;">519</td>
+<td style="text-align: right;">466</td>
+<td style="text-align: right;">435</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">267</td>
+<td style="text-align: right;">1045</td>
+<td style="text-align: right;">297</td>
+<td style="text-align: right;">1950</td>
+<td style="text-align: right;">1562</td>
+<td style="text-align: right;">3860</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>💡 In R, list elements are accessible with the <code>$</code> accessor. Our dds object is indeed a list made up of three elements, the counts table, the samples table and the design table, these are accessible using <code>$</code> like we did above.</p>
+</blockquote>
+</section>
+</section>
+</section>
+<section id="normalizing-count-data" class="level2">
+<h2 class="anchored" data-anchor-id="normalizing-count-data">Normalizing Count Data</h2>
+<p>As we have discussed above, normalization is an integral step to the downstream analysis and necessary for differential comparison. In this section we will normalize our data using the <code>calcNormFactors</code> function of the package. As we have previously introduced, edgeR uses the <strong>trimmed mean of M-values (TMM) method</strong> to calculate a set of <strong>size factors</strong> to <strong>minimize the log-fold change differences occurring between samples</strong> (<em>uninteresting</em>) for the majority of genomic intervals. The <strong>counts for each sample get then multiplied by the scaling factors</strong> to generate what is referred to as <em>effective library size</em>, which will be used for all downstream analyses.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Call the function to normalize count data</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">calcNormFactors</span>(dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can check the values of the computed size factors by doing the following, note how there are as many size factors as there are samples and they are inserted in a column of the samples table named <code>norm.factors</code> in our <code>DGEList</code> object:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dds<span class="sc">$</span>samples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">group</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">lib.size</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">norm.factors</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">groups</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Tissue</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">SampleID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SQ_2157</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">69284</td>
+<td style="text-align: right;">0.8333710</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">4KE</td>
+<td style="text-align: left;">SQ_2157</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SQ_1990</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">96388</td>
+<td style="text-align: right;">0.9440527</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">8KE</td>
+<td style="text-align: left;">SQ_1990</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SQ_2010</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">112029</td>
+<td style="text-align: right;">1.0442464</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">10KE</td>
+<td style="text-align: left;">SQ_2010</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SQ_2163</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">169859</td>
+<td style="text-align: right;">1.0626712</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">13KE</td>
+<td style="text-align: left;">SQ_2163</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SQ_2204</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">108070</td>
+<td style="text-align: right;">0.9248773</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">18KE</td>
+<td style="text-align: left;">SQ_2204</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SQ_2212</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">162626</td>
+<td style="text-align: right;">0.8631713</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">11KW</td>
+<td style="text-align: left;">SQ_2212</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SQ_2216</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">166803</td>
+<td style="text-align: right;">0.8058559</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">24KE</td>
+<td style="text-align: left;">SQ_2216</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SQ_2222</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">126541</td>
+<td style="text-align: right;">1.0226951</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">22KE</td>
+<td style="text-align: left;">SQ_2222</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SQ_2288</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">194224</td>
+<td style="text-align: right;">1.1369122</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">36KE</td>
+<td style="text-align: left;">SQ_2288</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SQ_2303</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: right;">92047</td>
+<td style="text-align: right;">0.8559558</td>
+<td style="text-align: left;">K_org</td>
+<td style="text-align: left;">41KE</td>
+<td style="text-align: left;">SQ_2303</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SQ_2298</td>
+<td style="text-align: left;">N_crypts</td>
+<td style="text-align: right;">106228</td>
+<td style="text-align: right;">1.4064150</td>
+<td style="text-align: left;">N_crypts</td>
+<td style="text-align: left;">CR_41_mp</td>
+<td style="text-align: left;">SQ_2298</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SQ_2145</td>
+<td style="text-align: left;">N_crypts</td>
+<td style="text-align: right;">31407</td>
+<td style="text-align: right;">1.3095585</td>
+<td style="text-align: left;">N_crypts</td>
+<td style="text-align: left;">CR_28_mp</td>
+<td style="text-align: left;">SQ_2145</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GSM2058021</td>
+<td style="text-align: left;">N_crypts</td>
+<td style="text-align: right;">176893</td>
+<td style="text-align: right;">0.9919079</td>
+<td style="text-align: left;">N_crypts</td>
+<td style="text-align: left;">CR_28</td>
+<td style="text-align: left;">GSM2058021</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GSM2058022</td>
+<td style="text-align: left;">N_crypts</td>
+<td style="text-align: right;">119979</td>
+<td style="text-align: right;">1.0117534</td>
+<td style="text-align: left;">N_crypts</td>
+<td style="text-align: left;">CR_29</td>
+<td style="text-align: left;">GSM2058022</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GSM2058023</td>
+<td style="text-align: left;">N_crypts</td>
+<td style="text-align: right;">287106</td>
+<td style="text-align: right;">0.9678679</td>
+<td style="text-align: left;">N_crypts</td>
+<td style="text-align: left;">CR_37</td>
+<td style="text-align: left;">GSM2058023</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>💡 NOTE: Although <code>edgeR</code> does not use normalized counts as input for the differential analysis (the normalization process happens inside automatically), the normalized counts we just generated are definitely useful when plotting results and performing clustering.</p>
+</blockquote>
+<section id="normalization-discussion" class="level3">
+<h3 class="anchored" data-anchor-id="normalization-discussion">Normalization discussion</h3>
+<p>Normalization of experimental data is particularly important in ChIP-seq (and ATAC-seq) analysis, and may require <strong>more careful consideration than needed for RNA-seq analysis</strong>. This is because the range of ChIP-seq experiments covers more cases than RNA-seq, which usually involve a similar set of possible expressed genes and/or transcripts, many of which are not expected to significantly change expression. ChIP, ATAC, and similar enrichment-based sequencing data may not follow the assumptions inherent in popular methods for normalizing RNA-seq data, as well as exhibiting different types of efficiency and other biases.</p>
+<section id="referene-reads" class="level4">
+<h4 class="anchored" data-anchor-id="referene-reads">Referene reads</h4>
+<p>One important concept is that for the type of data we are dealing with in DNA enrichment assays, the <strong>reads that are used as the reference for normalizing are as important as (or even more than) the normalization method itself</strong>. While in RNA-seq experiments the expression matrix can be normalized directly, based on the <strong>reads that uniquely overlap genes</strong> or transcripts, this does not apply to a count matrix based on a consensus peakset.</p>
+<p>The <code>DiffBind</code> package is a tool that has been designed specifically for ChIP-seq data analysis. It is interesting to notice that using this tools, you can normalize your data using two different set of reference reads: - one uses all the reads (the <em>full</em> library size) - the other normalizes bases only on the total number of reads in the consensus peakset (namely, the <em>effective</em> library size). The major difference is that the full library size takes into account also “background” reads, that are most of the reads in a ChIP-seq sample library! In brief, the fact that we consider the background might reflect in a less biased normalization calculation.</p>
+<p><strong>Take home message:</strong> &gt; In this workshop, to make things less complex, we used a “common” normalization method without any prior in-depth analysis on the best strategy to normalize these specific data in this context. But just keep in mind that some normalization methods might be more “correct” than others in some circumstances.</p>
+</section>
+</section>
+</section>
+<section id="transforming-count-data-for-visualization-purposes" class="level2">
+<h2 class="anchored" data-anchor-id="transforming-count-data-for-visualization-purposes">Transforming Count Data for visualization purposes</h2>
+<p>After we have normalized our data, we need to perform a <strong>transformation</strong>. There are many ways to transform count data but all of them achieve the <strong>goal of removing the dependence between <em>variance</em> and <em>mean</em> counts across samples</strong> (something called <em>homoscedasticity</em>) in order to highlight interesting and biologically relevant expression trends even for genes expressed at lower values. We transform the data using a function provided in the <code>edgeR</code> package called <code>cpm()</code> which also performs a <strong>logarithmic transformation</strong> which has the effect of reshaping the data to achieve gene-wise distributions which resemble a normal distribution. Without getting too much into the details of the workings of the function, we will transform the data and then look at how the gene-wise relationship between the mean and variance in our normalized data changes <em>before and after the transformation</em>. The purpose of this procedure is to allow proper data visualization later in the analysis, <strong>the transformed data is NOT used for the differential expression analysis which instead starts from <em>raw counts</em></strong>!</p>
+<p>The following code is used to plot the mean/standard deviation relationship of every gene before the transformation.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vsn)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot before data transformation</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">meanSdPlot</span>(dds<span class="sc">$</span>counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Day2_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Transform the data and then plot the mean/standard deviation relationship after the transformation.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform the data with a log2 transform (watch how we create a new variable for it)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>log2dds <span class="ot">&lt;-</span> <span class="fu">cpm</span>(dds, <span class="at">log=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check out the transformed values (notice how we now have floating point values and some are even negative!)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(log2dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2157</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_1990</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2010</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2163</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2204</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2212</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2216</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2222</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2288</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2303</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2298</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2145</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">GSM2058021</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">GSM2058022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">GSM2058023</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">reg_6364</td>
+<td style="text-align: right;">7.261491</td>
+<td style="text-align: right;">4.693504</td>
+<td style="text-align: right;">4.550522</td>
+<td style="text-align: right;">9.109187</td>
+<td style="text-align: right;">4.637530</td>
+<td style="text-align: right;">6.748099</td>
+<td style="text-align: right;">5.217372</td>
+<td style="text-align: right;">6.749666</td>
+<td style="text-align: right;">6.949194</td>
+<td style="text-align: right;">8.000180</td>
+<td style="text-align: right;">8.363990</td>
+<td style="text-align: right;">6.809124</td>
+<td style="text-align: right;">8.963787</td>
+<td style="text-align: right;">8.204418</td>
+<td style="text-align: right;">9.410705</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reg_6365</td>
+<td style="text-align: right;">8.861623</td>
+<td style="text-align: right;">7.874496</td>
+<td style="text-align: right;">7.940615</td>
+<td style="text-align: right;">8.104651</td>
+<td style="text-align: right;">9.217110</td>
+<td style="text-align: right;">8.943007</td>
+<td style="text-align: right;">8.509886</td>
+<td style="text-align: right;">8.702827</td>
+<td style="text-align: right;">8.272585</td>
+<td style="text-align: right;">8.136559</td>
+<td style="text-align: right;">8.241717</td>
+<td style="text-align: right;">8.141225</td>
+<td style="text-align: right;">8.861440</td>
+<td style="text-align: right;">8.895419</td>
+<td style="text-align: right;">9.629675</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">reg_6366</td>
+<td style="text-align: right;">5.009203</td>
+<td style="text-align: right;">6.830221</td>
+<td style="text-align: right;">4.550522</td>
+<td style="text-align: right;">5.588723</td>
+<td style="text-align: right;">4.637530</td>
+<td style="text-align: right;">4.460066</td>
+<td style="text-align: right;">4.480605</td>
+<td style="text-align: right;">6.108000</td>
+<td style="text-align: right;">4.279070</td>
+<td style="text-align: right;">4.785443</td>
+<td style="text-align: right;">8.304149</td>
+<td style="text-align: right;">5.292741</td>
+<td style="text-align: right;">8.589938</td>
+<td style="text-align: right;">8.559744</td>
+<td style="text-align: right;">9.283187</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reg_6367</td>
+<td style="text-align: right;">5.009203</td>
+<td style="text-align: right;">4.693504</td>
+<td style="text-align: right;">4.550522</td>
+<td style="text-align: right;">7.035881</td>
+<td style="text-align: right;">5.124956</td>
+<td style="text-align: right;">6.840672</td>
+<td style="text-align: right;">5.480357</td>
+<td style="text-align: right;">5.742032</td>
+<td style="text-align: right;">4.581540</td>
+<td style="text-align: right;">4.785443</td>
+<td style="text-align: right;">8.503560</td>
+<td style="text-align: right;">9.491770</td>
+<td style="text-align: right;">9.583393</td>
+<td style="text-align: right;">9.125609</td>
+<td style="text-align: right;">9.433409</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">reg_6368</td>
+<td style="text-align: right;">5.009203</td>
+<td style="text-align: right;">4.693504</td>
+<td style="text-align: right;">7.160908</td>
+<td style="text-align: right;">6.769029</td>
+<td style="text-align: right;">6.227152</td>
+<td style="text-align: right;">6.428312</td>
+<td style="text-align: right;">5.895332</td>
+<td style="text-align: right;">4.499083</td>
+<td style="text-align: right;">6.015691</td>
+<td style="text-align: right;">6.291778</td>
+<td style="text-align: right;">6.467791</td>
+<td style="text-align: right;">6.456553</td>
+<td style="text-align: right;">6.277538</td>
+<td style="text-align: right;">7.674925</td>
+<td style="text-align: right;">7.757593</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reg_6369</td>
+<td style="text-align: right;">11.644546</td>
+<td style="text-align: right;">11.712362</td>
+<td style="text-align: right;">10.855382</td>
+<td style="text-align: right;">11.844212</td>
+<td style="text-align: right;">11.449227</td>
+<td style="text-align: right;">11.857996</td>
+<td style="text-align: right;">11.765514</td>
+<td style="text-align: right;">11.721151</td>
+<td style="text-align: right;">11.154281</td>
+<td style="text-align: right;">11.732854</td>
+<td style="text-align: right;">12.775053</td>
+<td style="text-align: right;">12.820937</td>
+<td style="text-align: right;">13.441920</td>
+<td style="text-align: right;">13.653092</td>
+<td style="text-align: right;">13.763350</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># let's plot the transformed values</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">meanSdPlot</span>(log2dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Day2_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>It is clear how regions with high mean signal (on the right) are now comparable in terms of standard deviation to regions with lower mean signal (on the left). Normally this plot should look slightly different in terms of density, but remember that we are considering only a subset of the dataset.</p>
+</blockquote>
+</section>
+<section id="assessing-sample-to-sample-relationships" class="level2">
+<h2 class="anchored" data-anchor-id="assessing-sample-to-sample-relationships">Assessing Sample-to-sample Relationships</h2>
+<p>One way to understand trends in our data and the present of poor quality or <em>outlier</em> samples is to perform exploratory analyses through visualization.</p>
+<p>Of particular interest is the presence of technical effects in the experiment, such as <strong>batch effects</strong>.</p>
+<p>In R in general, <strong>data visualization</strong> is aided by the presence of many packages (on top the basic plotting functionality) which can handle diverse kinds of data visualization tasks (from traditional plots to visualizing tabular data through heatmaps). We will encounter two of these packages, one is <code>ggplot2</code> and the other one is <code>pheatmap</code>.</p>
+<section id="hierarchical-clustering" class="level3">
+<h3 class="anchored" data-anchor-id="hierarchical-clustering">Hierarchical clustering</h3>
+<p>One of the main strategies for checking the consistency of our dataset is to <strong>cluster samples based on their complete H3K27 acetylation profile</strong> (which is considered within 1581 genomic regions in our dataset). This will allow us to <strong>spot the presence of <em>outliers</em> in the data</strong> and <strong>look for consistent profiles of H3K27Ac across biological replicates</strong>, which we expect. Use the code below to <strong>plot a <em>heatmap</em> of normalized (and transformed) count values</strong> for our samples. Since plotting the full count table can be computationally expensive, we might want to subset it to the 200 genomic regions with stronger H3K27Ac signal in the dataset.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"pheatmap"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Take the top 200 genomic regions in the dataset</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>select <span class="ot">&lt;-</span> <span class="fu">order</span>(<span class="fu">rowMeans</span>(log2dds),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">decreasing=</span><span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>] <span class="co"># Select number of regions</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create another table for annotating the heatmap with colors</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(samples[,<span class="fu">c</span>(<span class="st">"groups"</span>,<span class="st">"Tissue"</span>)])</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw the heatmap using the `pheatmap` package</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(log2dds[select,], <span class="at">cluster_rows=</span><span class="cn">FALSE</span>, <span class="at">show_rownames=</span><span class="cn">FALSE</span>,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">cluster_cols=</span><span class="cn">TRUE</span>, <span class="at">annotation_col=</span>df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Day2_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>What type of assessment would you make about the consistency of the samples across these top active 200 regions ? Do they cluster (a synonym for similar) based on the biological condition of our interest?</p>
+</blockquote>
+</section>
+<section id="sample-to-sample-distances" class="level3">
+<h3 class="anchored" data-anchor-id="sample-to-sample-distances">Sample-to-sample Distances</h3>
+<p>Another way to get a sense of the global relationship between samples is to check for <strong>how distant samples are between themselves</strong>. This analysis of <em>pairwise distances</em> looks at the acetylation signal of all 1581 genomic regions in the dataset and determines which samples have a more or less similar or different signal value for each. We expect biologically similar samples to have very little difference.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute distances</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>sampleDists <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="fu">t</span>(log2dds))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Organize</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>sampleDistMatrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(sampleDists)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>( <span class="fu">rev</span>(<span class="fu">brewer.pal</span>(<span class="dv">9</span>, <span class="st">"Blues"</span>)) )(<span class="dv">255</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot with `pheatmap`</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(sampleDistMatrix,</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">clustering_distance_rows=</span>sampleDists,</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">clustering_distance_cols=</span>sampleDists,</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> colors,</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">annotation_col =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Day2_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Free up memory space</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(sampleDistMatrix)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          used (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
+Ncells 1754305 93.7    3398274 181.5         NA  2387661 127.6
+Vcells 3453622 26.4    8388608  64.0      16384  5795773  44.3</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>💡 What type of assessment would you make about the heatmap you just produced? Is the analysis highlighting biologically relevant differences in the dataset?</p>
+</blockquote>
+</section>
+<section id="dimensionality-reduction-with-principal-component-analysis-pca" class="level3">
+<h3 class="anchored" data-anchor-id="dimensionality-reduction-with-principal-component-analysis-pca">Dimensionality reduction with Principal Component Analysis (PCA)</h3>
+<p>Another useful approach for <strong>understanding the main variability axes in our data</strong> is to compute and plot a <a href="https://en.wikipedia.org/wiki/Principal_component_analysis"><strong>PCA</strong></a>. Without getting into the details, PCA takes our H3K27Ac data and outputs its <strong>principal components</strong>, which encode the <strong><em>main sources of variability in the data</em></strong>. Ideally, <strong>we want the samples to have variability caused by the biological effect of our interest</strong> (in this case the differences between normal and tumor organoids), but this might not be the case. By plotting and coloring the points by different <strong><em>covariates</em></strong> (i.e.&nbsp;subject or condition) we are able to understand where the variability comes from and if there is any detectable <a href="https://en.wikipedia.org/wiki/Batch_effect"><strong>batch effect</strong></a>. Use the code below to generate a <em>scatter plot</em> of PCA coordinates and color them to understand what causes the variability in the data.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate principal components and percentage of variance</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>pcs <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(log2dds, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>percentVar <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">summary</span>(pcs)<span class="sc">$</span>importance[<span class="dv">2</span>,])</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>pcaData <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(pcs<span class="sc">$</span>rotation) <span class="sc">%&gt;%</span> <span class="fu">merge</span>(samples, <span class="at">by=</span><span class="dv">0</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot (this time with ggplot2!!)</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pcaData, <span class="fu">aes</span>(PC1, PC2, <span class="at">color=</span>groups, <span class="at">shape=</span>Tissue)) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="fu">paste0</span>(<span class="st">"PC1: "</span>,percentVar[<span class="dv">1</span>],<span class="st">"% variance"</span>)) <span class="sc">+</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="fu">paste0</span>(<span class="st">"PC2: "</span>,percentVar[<span class="dv">2</span>],<span class="st">"% variance"</span>)) <span class="sc">+</span> </span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Day2_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>💡 What can you say about this PCA? Are the samples positioning themselves based on their biological condition? How does this information relate to the other plots we produced above?</p>
+</blockquote>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's clean some space up!</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(pcs)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(pcaData)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(log2dds)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we have plotted all the main diagnostic information related to the dataset and we have a bit of a grasp of it, we can start thinking about testing for differentially active enhancer regions.</p>
+</section>
+</section>
+<section id="online-resources-and-databases-for-omics-data" class="level2">
+<h2 class="anchored" data-anchor-id="online-resources-and-databases-for-omics-data">Online Resources and Databases for omics data</h2>
+<p>The seciton below briefly introduce you to the description and usage of some very useful online resources for ChIP-seq public data and also other omics data. Take a closer look to explore them, you might need them in the future in order to complement your future experiments!</p>
+<section id="poor-mans-guide-to-omics" class="level3">
+<h3 class="anchored" data-anchor-id="poor-mans-guide-to-omics">Poor man’s guide to omics</h3>
+<p>When approaching a new problem, you might conceive <strong>multiple hypotheses</strong> that could instruct a wide variety of experimental approaches. However, you have neither the time, nor the money or the inclination to perform all of these experiments. Chances are, though, that somewhere in a server there is a dataset that can help you, be it a ChIP-seq dataset or any other omic. They may not give you an answer outright, but they’ll help you <strong>prune your hypotheses</strong> and only keep the ones that have some foundation. After all, while big data analysis often results in false positives, or at least positives that are contingent to a specific model, it is very useful to avoid pursuing roads for which no evidence is found in datasets.</p>
+<p>This section aims to give you <strong>resources</strong> that you can employ to perform simple analyses that prevent you from wasting your time and allow you to focus on the experiments that matter.</p>
+<p>Over the years, multiple consortia have assembled these datasets into curated collections, and new datasets are published with almost every new paper, neatly stored into various sites.</p>
+<p>Here we provide a handful of <strong>key databases</strong> and characteristics of the main ones, as well as a list of other databases that may be useful for more specific questions.</p>
+<section id="encode-the-encyclopedia-of-dna-elements" class="level4">
+<h4 class="anchored" data-anchor-id="encode-the-encyclopedia-of-dna-elements">ENCODE: the encyclopedia of DNA elements</h4>
+<p>The closest to the object of the workshop, over more than 20 years of activity the ENCODE consortium is the biggest effort in <strong>functional genomics</strong> in the world, assembling thousands of datasets. You can easily browse their portal by theme and find ready-made datasets that pertain to your field. Once you have your dataset (or datasets) of choice, you only have to browse it with the help of this workshop’s scripts or visualize it, for example with IGV.</p>
+<p><a href="https://www.encodeproject.org/">Encode project</a></p>
+</section>
+<section id="geo-the-gene-expression-omnibus" class="level4">
+<h4 class="anchored" data-anchor-id="geo-the-gene-expression-omnibus">GEO: The Gene Expression Omnibus</h4>
+<p>This portal is almost ubiquitous in publications - in fact, nearly all <strong>gene expression datasets</strong> used in publications, both bulk and single cell, are published on the GEO, a service handled by the NCBI. The GEO datasets can be accessed from papers, but also directly from the portal, and the neat thing is that they are generally well annotated so that you can understand how specific experiments were performed. They have specific files that tell you how the data was generated. This kind of information can be complementary to epigenome data, or can inform derivative work giving you invaluable insight into a model you want to adopt.</p>
+<p><a href="https://www.ncbi.nlm.nih.gov/geo/">Gene Expression Omnibus</a></p>
+</section>
+<section id="tcga-the-cancer-genome-atlas" class="level4">
+<h4 class="anchored" data-anchor-id="tcga-the-cancer-genome-atlas">TCGA: The Cancer Genome Atlas</h4>
+<p>Among the biggest efforts in contemporary medical research, spearheaded by the NIH. The Cancer Genome Atlas has gathered <strong>transcriptomics, methylation, and chromatin accessibility</strong> data for an incredibly wide array of malignancies, and it keeps expanding with new cohorts of patients, curated by individual contributors. While it is a specific resource pertaining to oncology, its wealth of controls and diversity of malignancies makes it invaluable for anybody working on human biology - after all, most fundamental biology experiments are performed on cancer cell lines.</p>
+<p><a href="https://www.cancer.gov/ccg/research/genome-sequencing/tcga">The Cancer Genome Atlas</a></p>
+</section>
+<section id="the-human-cell-atlas" class="level4">
+<h4 class="anchored" data-anchor-id="the-human-cell-atlas">The Human Cell Atlas</h4>
+<p>Arguably the biggest ongoing sequencing project in the world, the Human Cell Atlas aims to fully leverage <strong>single cell transcriptomes</strong> to define every <em>cell type</em> in the human body. Currently hosting data for close to <strong>60 million</strong> sequenced cells and still counting, this is the largest single-cell resolved gene expression resource currently available for non-diseased tissue. Allows downloads in formats that are ‘easily’ browsed - meaning you don’t have to do core processing yourself.</p>
+<p><a href="https://data.humancellatlas.org/">HCA</a></p>
+</section>
+<section id="additional-links" class="level4">
+<h4 class="anchored" data-anchor-id="additional-links">Additional links:</h4>
+<p><a href="https://egg2.wustl.edu/roadmap/web_portal/">Roadmap consortium</a> Generated tracks for multiple modifications, and produced ChromHMM to sort them out</p>
+<p><a href="https://www.ebi.ac.uk/bioimage-archive/">EBI Bioimage Archive</a> European resource for bioimages. Pretty unique and specific, rare type of datasets.</p>
+<p><a href="https://gtexportal.org/home/">GTEX</a> Tissue-specific genotype regulation - a complex database that can tell you whether your gene of interest works in the context you study.</p>
+<p><a href="https://libguides.brown.edu/c.php?g=545426&amp;p=3741199">Brown university collection - way better than ours!</a> Collection of resources, including some of those we showed above. Take a look when you need to find some new source of data!</p>
+<p><a href="https://www.nlm.nih.gov/NIHbmic/domain_specific_repositories.html">NIH’s collection - even better than Brown’s!</a> Includes even more well-categorized resources.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Copyright 2024, Jacopo Arrigoni &amp; Carolina Dossena</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
