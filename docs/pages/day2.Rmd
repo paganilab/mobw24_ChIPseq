@@ -1,13 +1,6 @@
 ---
 title: "Day 2"
-output: 
-  html_document:
-    toc: true
-    toc_float: true
-editor_options: 
-  markdown: 
-    wrap: sentence
-code-block-border-left: true
+output: html_document
 ---
 
 ## Objectives
