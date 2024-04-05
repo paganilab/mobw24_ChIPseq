@@ -15,8 +15,8 @@ website:
         text: Day 1
       - href: ./pages/Day2.Rmd
         text: Day 2
-#      - href: ./pages/day3.Rmd
-#        text: Day 3
+      - href: ./pages/Day3.Rmd
+        text: Day 3
 #      - href: ./pages/help.Rmd
 #        text: Help  
     right: 

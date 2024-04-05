@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2024 Bioinformatics Workshop</title>
+<title>2024 Bioinformatics Workshop - Day 3</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -66,7 +100,38 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -99,6 +164,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../pages/Day2.html"> 
 <span class="menu-text">Day 2</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../pages/Day3.html" aria-current="page"> 
+<span class="menu-text">Day 3</span></a>
+  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
@@ -123,16 +192,893 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#objetives" id="toc-objetives" class="nav-link active" data-scroll-target="#objetives">Objetives</a></li>
+  <li><a href="#differential-analysis" id="toc-differential-analysis" class="nav-link" data-scroll-target="#differential-analysis">Differential analysis</a>
+  <ul class="collapse">
+  <li><a href="#the-main-edger-function" id="toc-the-main-edger-function" class="nav-link" data-scroll-target="#the-main-edger-function">The Main <code>edgeR</code> Function</a></li>
+  </ul></li>
+  <li><a href="#extracting-and-examining-results" id="toc-extracting-and-examining-results" class="nav-link" data-scroll-target="#extracting-and-examining-results">Extracting and examining results</a>
+  <ul class="collapse">
+  <li><a href="#visualizing-results-with-md-plots" id="toc-visualizing-results-with-md-plots" class="nav-link" data-scroll-target="#visualizing-results-with-md-plots">Visualizing Results With MD Plots</a></li>
+  <li><a href="#visualizing-results-with-volcano-plots" id="toc-visualizing-results-with-volcano-plots" class="nav-link" data-scroll-target="#visualizing-results-with-volcano-plots">Visualizing results with volcano plots</a></li>
+  <li><a href="#visualizing-results-with-heatmaps" id="toc-visualizing-results-with-heatmaps" class="nav-link" data-scroll-target="#visualizing-results-with-heatmaps">Visualizing results with heatmaps</a></li>
+  <li><a href="#visualizing-results-with-violin-and-box-plots" id="toc-visualizing-results-with-violin-and-box-plots" class="nav-link" data-scroll-target="#visualizing-results-with-violin-and-box-plots">Visualizing results with violin and box plots</a></li>
+  </ul></li>
+  <li><a href="#further-downstream-analyses" id="toc-further-downstream-analyses" class="nav-link" data-scroll-target="#further-downstream-analyses">Further downstream analyses</a></li>
+  <li><a href="#understanding-recurrence-of-enhancer-regions-across-patients" id="toc-understanding-recurrence-of-enhancer-regions-across-patients" class="nav-link" data-scroll-target="#understanding-recurrence-of-enhancer-regions-across-patients">Understanding recurrence of enhancer regions across patients</a></li>
+  <li><a href="#annotating-genomic-regions-to-genes" id="toc-annotating-genomic-regions-to-genes" class="nav-link" data-scroll-target="#annotating-genomic-regions-to-genes">Annotating genomic regions to genes</a>
+  <ul class="collapse">
+  <li><a href="#enhancer-distribution-across-known-genomic-features" id="toc-enhancer-distribution-across-known-genomic-features" class="nav-link" data-scroll-target="#enhancer-distribution-across-known-genomic-features">Enhancer distribution across known genomic features</a></li>
+  </ul></li>
+  <li><a href="#gene-ontology-analysis" id="toc-gene-ontology-analysis" class="nav-link" data-scroll-target="#gene-ontology-analysis">Gene Ontology Analysis</a></li>
+  <li><a href="#take-home-messages" id="toc-take-home-messages" class="nav-link" data-scroll-target="#take-home-messages">Take-home Messages 🏠</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Day 3</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
+
+
+<section id="objetives" class="level2">
+<h2 class="anchored" data-anchor-id="objetives">Objetives</h2>
+<ul>
+<li>Understand the teory behind differential analysis in ChIP-seq</li>
+<li>Perform differential analysis using <code>edgeR</code></li>
+<li>Visualize the results</li>
+<li>Perform gene ontology analysis on interesting gene groups</li>
+<li>Perform motif enrichment analysis</li>
+</ul>
+</section>
+<section id="differential-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="differential-analysis">Differential analysis</h2>
+<p>At this point of the workflow, we should know better our dataset we can finally approach differential analysis. The main concept behind it is to <strong>contrast tumor from normal organoids</strong> and check which enhancer regions are predominantly (defined in a <em>statistical</em> sense) enriched for H3K27Ac in one condition as opposed to the other. Remember that this is a proxy for <strong>enhancer activity</strong>. We have already given instructions to <code>edgeR</code> on which comparison to perform through the design formula when we created the DGEList object called <code>dds</code>.</p>
+<blockquote class="blockquote">
+<p>In case your dataset has a source of variability due to <strong>batch effect</strong> or other factors, the desgin formula is the right place where you can define whether you want to correct for these possible uniteresting differences. For instance, if you found that in your dataset part of the variability is due to the different patients from which the biological replicates come from, but you want to assess other biologically driven differences due to a certain treatment, you could modify your design formula in order to <strong>check differences due to the treatments, while controlling simultaneously for patient-to-patient variability</strong>. In this case, the design formula would be something similar to:</p>
+</blockquote>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Design formula that takes into account also variability across patients</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="sc">~</span> Patient <span class="sc">+</span> Treatment</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<blockquote class="blockquote">
+<p>This design formula works ideally if your dataset is <strong>paired</strong>, that is, there is equal contribution for all the patients to the contrasted condition (i.e., the treatment).</p>
+</blockquote>
+<p>We still don’t know how <code>edgeR</code> <strong>interprets</strong> the design formula in order to correctly perform the comparison of interest. Our <code>design</code> that we previously built is actually an object of “<strong>matrix</strong>” data type, which is similar to a <code>data.frame</code> object.</p>
+<blockquote class="blockquote">
+<p>The main difference between matrices and data frames is that matrices store only a single class of data, while data frames can consist of many different classes of dataa. You can also think about matrices as vectors that additionally contain the dimension attribute.</p>
+</blockquote>
+<p>We can inspect more closely the <code>design</code> matrix:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>design</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">(Intercept)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">sample_groupK_org</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<p>If we take a look at it we can see how the <strong>second column</strong> of this matrix is the one related to our comparison of interest, in particular to the tumor condition that we want to compare against the <em>reference</em> group of the normal condition.</p>
+<blockquote class="blockquote">
+<p>The design matrix typically consists of <strong><em>binary</em> values</strong>, where ‘1’ represents the samples of interest (tumor condition), and ‘0’ represents the reference group (normal condition). This binary setup allows us to construct a contrast between the two conditions.</p>
+</blockquote>
+<section id="the-main-edger-function" class="level3">
+<h3 class="anchored" data-anchor-id="the-main-edger-function">The Main <code>edgeR</code> Function</h3>
+<p>Let’s perform differential expression analysis with <code>edgeR</code> on our dataset using the main function for the task in the package, <code>glmTest()</code>. Without going into the mathematical details, this function fits a <a href="https://en.wikipedia.org/wiki/Generalized_linear_model"><strong>generalized linear model (GLM)</strong></a> to the data in order to perform inference and <strong>decide which genomic regions have a <em>statistically</em> difference in H3K27Ac signal</strong>.</p>
+<blockquote class="blockquote">
+<p>GLMs are an extension of classical linear models to <strong>non-normally distributed data</strong>, and are used to specify probability distributions according to their mean-variance relationship.</p>
+</blockquote>
+<p>We first need to compute <strong>region-wise dispersion estimate</strong> with the function <code>estimateDisp()</code>. <strong>These are needed by the model in order for its underlying assumptions to hold true</strong>. We can visually inspect the fit of the dispersion estimates below.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First we fit region-wise dispersion estimates to accomodate the theoretical assumptions of the model</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">estimateDisp</span>(dds, design, <span class="at">robust=</span><span class="cn">TRUE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the fitted dispersion values</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plotBCV</span>(dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Day3_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>From the dispersion estimate we can see that we are capturing and modelling efficiently the region-wise dispersion in the dataset which is <strong>intrinsically present due to variation</strong>. This variation is quantified in <code>edgeR</code> with a <strong>BCV</strong> or a <em>B</em>iological <em>C</em>oefficient of <em>V</em>ariation which generally <strong>takes into account both <em>unwanted</em> biological variability (that you can specify in the design) and technical variation</strong>.</p>
+<p>Now that we have estimated dispersion of the data, we can start from the <strong>raw count data</strong> to assess statistically significant differences.</p>
+<blockquote class="blockquote">
+<p>Therefore, we will not used normalized and transformed data, but we know that <code>edgeR</code> will perform internally the normalization when performing the differential testing.</p>
+</blockquote>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the GLM</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glmFit</span>(dds, design)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform differential testing given the design formula we wrote previously</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>lrt <span class="ot">&lt;-</span> <span class="fu">glmLRT</span>(fit, <span class="at">coef=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<blockquote class="blockquote">
+<p>The reason why we specified <code>coef=2</code> in the code above is because we are referring to the 2nd column of the design matrix, the one contrasting tumor versus normal samples.</p>
+</blockquote>
+</section>
+</section>
+<section id="extracting-and-examining-results" class="level2">
+<h2 class="anchored" data-anchor-id="extracting-and-examining-results">Extracting and examining results</h2>
+<p>After having used the main edgeR function, we can actively explore the results of the analysis for the comparisons of our interest. We can later filter the results based adjusted <em>P</em>-value used to <strong>accept or reject the null hypothesis</strong> (<span class="math inline">\(H_{0}\)</span>) <strong>of a genomic region NOT being differentially enriched between the two conditions</strong>.</p>
+<p>With the code below we can extract a table that we call <code>res</code> which contains the results for every single enhancer, stored in separate rows.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the results</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(lrt<span class="sc">$</span>table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now <strong>check out our results object</strong>, which will be a <code>data.frame</code>, a table.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check out results object</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">logFC</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">logCPM</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">LR</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">PValue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">reg_6364</td>
+<td style="text-align: right;">-1.5423731</td>
+<td style="text-align: right;">7.811539</td>
+<td style="text-align: right;">4.2079269</td>
+<td style="text-align: right;">0.0402355</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reg_6365</td>
+<td style="text-align: right;">-0.3668209</td>
+<td style="text-align: right;">8.646372</td>
+<td style="text-align: right;">0.7407258</td>
+<td style="text-align: right;">0.3894285</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">reg_6366</td>
+<td style="text-align: right;">-3.7139760</td>
+<td style="text-align: right;">7.194626</td>
+<td style="text-align: right;">26.9011205</td>
+<td style="text-align: right;">0.0000002</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reg_6367</td>
+<td style="text-align: right;">-3.9579270</td>
+<td style="text-align: right;">7.908952</td>
+<td style="text-align: right;">40.6804721</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">reg_6368</td>
+<td style="text-align: right;">-1.1180092</td>
+<td style="text-align: right;">6.533408</td>
+<td style="text-align: right;">3.5852238</td>
+<td style="text-align: right;">0.0582956</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reg_6369</td>
+<td style="text-align: right;">-1.7503185</td>
+<td style="text-align: right;">12.439307</td>
+<td style="text-align: right;">35.1563108</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">reg_6370</td>
+<td style="text-align: right;">-0.9238764</td>
+<td style="text-align: right;">8.161677</td>
+<td style="text-align: right;">1.8083683</td>
+<td style="text-align: right;">0.1787041</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reg_6371</td>
+<td style="text-align: right;">-1.7267297</td>
+<td style="text-align: right;">12.204573</td>
+<td style="text-align: right;">29.8065079</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">reg_6372</td>
+<td style="text-align: right;">-3.4213174</td>
+<td style="text-align: right;">7.107506</td>
+<td style="text-align: right;">19.1972258</td>
+<td style="text-align: right;">0.0000118</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reg_6373</td>
+<td style="text-align: right;">-0.9786309</td>
+<td style="text-align: right;">10.470386</td>
+<td style="text-align: right;">5.7130866</td>
+<td style="text-align: right;">0.0168389</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<p>This table shows the <strong>log-fold change</strong> levels of enrichment/depletion of histone mark in our genomic regions. Keep in mind that a <strong>log-fold change of 1 corresponds to a difference in raw gene expression value of 2 times since the log has a base of 2</strong>. So, to recap, all of the enhancers with log-fold change of 1 or more are twice as enriched in H3K27Ac in one condition compared to the other and we will later filter regions based on the fold-change value.</p>
+<p>Additionally, we can see the <strong>Likelyhood Ratio</strong>, (“LR”) for each region. This is another statistical measure used in <code>edgeR</code> used to assess significance: higher LR values indicate stronger evidence against the null hypothesis of no difference between conditions.</p>
+<p>We can additionally <strong>print out a summary of the results of the differential analysis at a <em>P</em>-value &lt; 0.01</strong> by using the following code:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">decideTests</span>(lrt, <span class="at">p.value =</span> <span class="fl">0.01</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       sample_groupK_org
+Down                 162
+NotSig              1253
+Up                   166</code></pre>
+</div>
+</div>
+<p>Here we can see (1) the type of comparison we are performing (vs the reference, in our case normal crypts organoids), (2) the number of genomic regions with significantly higher (“Up”) enrichment in tumor organoids and the number of regions with significantly lower enrichment in tumor organoids (i.e., higher enrichment in normal condition).</p>
+<section id="visualizing-results-with-md-plots" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-results-with-md-plots">Visualizing Results With MD Plots</h3>
+<p><strong>MD plots are used to get a sense of the proportions of up- and down-regulated features</strong> between two conditions and the number of counts per million (CPM) of each feature, to check if regions with higher counts are statistically preferred to be also differential.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the MD Plot</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMD</span>(lrt)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">col=</span><span class="st">"gray"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Day3_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>With the gray line we indicate a fold-change of +/- 1 which, if you recall, stands for an <strong>actual magnitude of change of value 2</strong>.</p>
+</section>
+<section id="visualizing-results-with-volcano-plots" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-results-with-volcano-plots">Visualizing results with volcano plots</h3>
+<p>Results from a differential analysis can actually be visualized in many ways, in order to <strong>emphasize different messages of interest within them</strong>. One popular way is to associate statistical significance (P-Value) and magnitude of enrichment/depletion (fold change) related to each region in the dataset for the specific comparison we are evaluating.</p>
+<blockquote class="blockquote">
+<p>This is also the way results have been visualized in the paper from our study.</p>
+</blockquote>
+<p>Let’s plot a <em>scatterplot</em>, called “volcano” for the typical vulcanic shape, to summarize the results, also adding some <strong>thresholds</strong> to P-Values and log-fold changes.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>volcano_corr <span class="ot">&lt;-</span> res <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>( <span class="at">threshold=</span><span class="fu">ifelse</span>(logFC <span class="sc">&gt;=</span> <span class="dv">2</span> <span class="sc">&amp;</span> PValue <span class="sc">&lt;</span> <span class="fl">0.01</span>,<span class="st">"A"</span>, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">ifelse</span>(logFC <span class="sc">&lt;=</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">&amp;</span> PValue <span class="sc">&lt;</span> <span class="fl">0.01</span>, <span class="st">"B"</span>, <span class="st">"C"</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>volc_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(volcano_corr, <span class="fu">aes</span>(<span class="at">x=</span>logFC, <span class="at">y =</span><span class="sc">-</span><span class="fu">log10</span>(PValue), <span class="at">color=</span>threshold)) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.4</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>( <span class="st">"A"</span><span class="ot">=</span><span class="st">"#D90416"</span>,<span class="st">"B"</span><span class="ot">=</span><span class="st">"#033E8C"</span>, <span class="st">"C"</span><span class="ot">=</span><span class="st">"grey"</span>)) <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">xlab</span>(<span class="st">"log2(Fold Change)"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"-log10(adj p-value)"</span>) <span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">2</span>, <span class="at">colour=</span><span class="st">"#990000"</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>) <span class="sc">+</span> </span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2</span>, <span class="at">colour=</span><span class="st">"#990000"</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>) <span class="sc">+</span> </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">colour=</span><span class="st">"#990000"</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_y_continuous</span>(<span class="at">trans =</span> <span class="st">"log1p"</span>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>volc_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Day3_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-results-with-heatmaps" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-results-with-heatmaps">Visualizing results with heatmaps</h3>
+<p>We can also plot differentially enriched regions in the two conditions of our interest using heatmaps. In this case we select genomic intervals based on their significance (P-Value &lt; 0.01) and visualize how their H3K27Ac values change across samples just like we have done earlier.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take differential regions</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>diffs <span class="ot">&lt;-</span> <span class="fu">rbind</span>(volcano_corr[volcano_corr<span class="sc">$</span>threshold <span class="sc">==</span> <span class="st">"A"</span>,], volcano_corr[volcano_corr<span class="sc">$</span>threshold <span class="sc">==</span> <span class="st">"B"</span>,]) <span class="sc">%&gt;%</span> <span class="fu">rownames</span>()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset matrix for regions of interest</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>mtx <span class="ot">&lt;-</span> <span class="fu">cpm</span>(dds)[diffs,]</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create another table for annotating the heatmap with colors</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(samples[,<span class="fu">c</span>(<span class="st">"groups"</span>), <span class="at">drop=</span><span class="cn">FALSE</span>])</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>diff_heat <span class="ot">&lt;-</span> <span class="fu">pheatmap</span>(mtx, <span class="at">cluster_rows=</span><span class="cn">TRUE</span>, <span class="at">show_rownames=</span><span class="cn">FALSE</span>,<span class="at">cluster_cols=</span><span class="cn">TRUE</span>, <span class="at">annotation_col=</span>df, <span class="at">scale =</span> <span class="st">"row"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>diff_heat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Day3_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-results-with-violin-and-box-plots" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-results-with-violin-and-box-plots">Visualizing results with violin and box plots</h3>
+<p>Last, we can visualize the results by looking at the <strong>distribution of counts</strong> aggregated across conditions. We can plot the counts specifically for genomic regions up-regulated in tumor compared to normal condition and use a violin plot together with a box plot. The box plot highlights the <strong>interquartile range and the median of the data</strong>, while the volcano also show the <strong>kernel probability density of the data at different values</strong>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract up-regulated regions which correspond to all the dots in the right part of the volcano</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>up_regions <span class="ot">&lt;-</span> <span class="fu">rownames</span>(volcano_corr[volcano_corr<span class="sc">$</span>threshold <span class="sc">==</span> <span class="st">"A"</span>,])</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract normalized and log-scaled counts for up-regulated regions</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>up_mtx <span class="ot">&lt;-</span> <span class="fu">cpm</span>(dds, <span class="at">log=</span><span class="cn">TRUE</span>, <span class="at">normalized.lib.sizes =</span> <span class="cn">TRUE</span>)[up_regions,]</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge information about samples with the counts in order to group counts based on the condition of interest</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>merged_long_up_mtx <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="fu">as.data.frame</span>(up_mtx), <span class="at">cols =</span> <span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">'id'</span>) <span class="sc">%&gt;%</span> <span class="fu">merge</span>(samples, <span class="at">by.x =</span> <span class="st">'id'</span>, <span class="at">by.y =</span> <span class="dv">0</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the plot with ggplot2</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>violins <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(merged_long_up_mtx, <span class="fu">aes</span>(groups, value, <span class="at">fill =</span> groups)) <span class="sc">+</span> <span class="fu">geom_violin</span>(<span class="at">trim=</span><span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">'white'</span>, <span class="at">width=</span><span class="fl">0.1</span>) <span class="sc">+</span> </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'log CPM'</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>violins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Day3_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="further-downstream-analyses" class="level2">
+<h2 class="anchored" data-anchor-id="further-downstream-analyses">Further downstream analyses</h2>
+<p>Once we have our differentially enriched regions, we can perform various downstream analyses to check the <strong>functional aspects</strong> of the group of regions which are up- or down-regulated in our condition of interest.</p>
+<section id="loading-tables" class="level4">
+<h4 class="anchored" data-anchor-id="loading-tables">Loading tables</h4>
+<p>For these analyses, we will need to upload additional tables, that have been generated separately by us in order to speed up some computations and save memory. We introduced the content of these files on the first day, here we’ll do a brief recap.</p>
+<ol type="1">
+<li><p><code>recurrence_chr12.matrix</code>: this is a table where you can find if any of the regions that constitute the <strong>consensus set of enhancer regions</strong> is identified as enhancer also <strong>in the individual samples</strong>.</p></li>
+<li><p><code>Korg_UP_regions_results.txt</code> and <code>Ncr_UP_regions_results.txt</code>: these files store the differential analysis results for the <strong>entire set of enhancers across all the genome</strong> and not only Chr12 and, importantly, the regions listed in these files are annotated to gene symbols (we will talk about genomic region annotation later).</p></li>
+</ol>
+<p>You can upload the files in two ways, either automatically extracting the paths using <code>google.drive</code> package in RStudio, or first downloading from Google Drive and then uploading manually the files in the Cloud.</p>
+<p>First method:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>recurrence_table <span class="ot">&lt;-</span> files[files<span class="sc">$</span>name <span class="sc">==</span> <span class="st">'recurrence_chr12.matrix'</span>,] <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drive_read_string</span>() <span class="sc">%&gt;%</span> <span class="fu">read.table</span>(<span class="at">text =</span> ., <span class="at">sep=</span><span class="st">'</span><span class="sc">\t</span><span class="st">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Second method:</p>
+<p>Download the file “recurrence_chr12.matrix” from Google Drive, then click on “Upload” and put the file in the cloud. At this point run this command in the console:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>recurrence_table <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">'recurrence_chr12.matrix'</span>, <span class="at">sep=</span><span class="st">'</span><span class="sc">\t</span><span class="st">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we’ll do the same for the other two files:</p>
+<p>First method:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>tumor_up_res <span class="ot">&lt;-</span> files[files<span class="sc">$</span>name <span class="sc">==</span> <span class="st">'Korg_UP_regions_results.txt'</span>,] <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drive_read_string</span>() <span class="sc">%&gt;%</span> <span class="fu">read.delim</span>(<span class="at">text =</span> ., <span class="at">sep=</span><span class="st">'</span><span class="sc">\t</span><span class="st">'</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>tumor_down_res <span class="ot">&lt;-</span> files[files<span class="sc">$</span>name <span class="sc">==</span> <span class="st">'Ncr_UP_regions_results.txt'</span>,] <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drive_read_string</span>() <span class="sc">%&gt;%</span> <span class="fu">read.delim</span>(<span class="at">text =</span> ., <span class="at">sep=</span><span class="st">'</span><span class="sc">\t</span><span class="st">'</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Second method (after uploading the above files on the Cloud):</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>tumor_up_res <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">'Korg_UP_regions_results.txt'</span>, <span class="at">sep=</span><span class="st">'</span><span class="sc">\t</span><span class="st">'</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>tumor_down_res <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">'Ncr_UP_regions_results.txt'</span>, <span class="at">sep=</span><span class="st">'</span><span class="sc">\t</span><span class="st">'</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="understanding-recurrence-of-enhancer-regions-across-patients" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-recurrence-of-enhancer-regions-across-patients">Understanding recurrence of enhancer regions across patients</h2>
+<p>As the paper presenting our studies reports:</p>
+<blockquote class="blockquote">
+<p>“To identify common epigenetic blueprints across the organoid library, we looked at the <strong>concordance</strong> of tumor-enriched enhancers in the PDOs (Patient-derived Organoids).”</p>
+</blockquote>
+<p>One of the downstream analyses that has been performed on the tumor-enriched enhancers (i.e.&nbsp;the enhancers with significantly higher H3K27Ac signal compared to normal organoids) was aimed at understanding if there is a <strong>signature of genomic regions that are highly shared and consistently enriched in the entire library of PDOs</strong>, which represent an especially interest subset of regions being the <strong>most conserved enhancers</strong>.</p>
+<p>In order to perform this analysis, we need to start from a binary table that indicates for each genomic region (i.e., the rows), if it called as enhancer in each seprate sample (i.e., the columns). This is our recurrence table:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(recurrence_table, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2157</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_1990</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2010</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2163</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2204</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2212</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2216</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2222</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2288</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2303</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2298</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SQ_2145</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">GSM2058021</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">GSM2058022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">GSM2058023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Called_Korg</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Called_Ncr</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">reg_6364</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reg_6365</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">reg_6366</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reg_6367</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">reg_6368</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<p>In order to get the number of PDO samples and normal samples that share each genomic region in the consensus, we need to calculate the <strong>row-wise sum</strong> of all the ‘1’s in the table. &gt; We have already performed this step for you: you can see the row-sums in the last two columns of the table, named ’Called_Korg’ and ‘Called_Ncr’ respectively for tumor and normal sample counts.</p>
+<p>At this point we can use this code to generate a <strong>pie chart</strong> that illustrates the recurrence of the up-regulated regions across samples.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the recurrence table for the significantly enriched enhancers in tumor samples and select only the columns with the row-sums</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>rec_df <span class="ot">&lt;-</span> recurrence_table[up_regions,] <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">"Called"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a new column that group regions based on the extent of recurrence across samples</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group=</span><span class="fu">case_when</span>(Called_Korg<span class="sc">%in%</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) <span class="sc">~</span> <span class="st">"1-4"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                         Called_Korg<span class="sc">%in%</span><span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">7</span>) <span class="sc">~</span> <span class="st">"5-7"</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>                         <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"8-10"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Aggregate regions based on the group</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span> <span class="fu">tally</span>() <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">n=</span><span class="fu">as.numeric</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate frequencies for each group of regions </span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(group)) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">ypos =</span> <span class="fu">cumsum</span>(prop)<span class="sc">-</span> <span class="fl">0.5</span><span class="sc">*</span>prop )</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Make plot</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>rec_pie <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rec_df, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span>prop, <span class="at">fill=</span>group)) <span class="sc">+</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>, <span class="at">width=</span><span class="dv">1</span>, <span class="at">color=</span><span class="st">'white'</span>) <span class="sc">+</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start=</span><span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">y =</span> ypos, <span class="at">label =</span> group), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size=</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">'orange2'</span>,<span class="st">'coral3'</span>,<span class="st">'red4'</span>))</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>rec_pie</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Day3_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can print the frequencies as percentages, as we have calculated them in the above code.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>rec_df <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(group, n, prop)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">group</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">n</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">prop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">8-10</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">20.43011</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5-7</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">27.41935</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1-4</td>
+<td style="text-align: right;">97</td>
+<td style="text-align: right;">52.15054</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<p>As we can see from the table, there is a subset of enhancers consisting in 20% of the total number of enhancers in chromosome 12, which are consistently highly enriched in 8-to-10 tumor organoids compared to normal ones (10 is the total number of PDOs). This <em>core</em> set of regions constitute a particularly interesting signature that likely <strong>drives the regulation of likely relevant genes in CRC tumor cells</strong>.</p>
+</section>
+<section id="annotating-genomic-regions-to-genes" class="level2">
+<h2 class="anchored" data-anchor-id="annotating-genomic-regions-to-genes">Annotating genomic regions to genes</h2>
+<p>Talking about genes, one of the key steps when dealing with genomic features is their <strong>annotation</strong> to actual genes. Annotating genomic regions to genes involves the process of <strong>identifying and labeling specific regions of the genome with the genes they correspond to</strong>. More generally, annotating genomic feature to genes helps in the process of understanding the genomic context of genes, including their regulation, and function.</p>
+<p>One of the most <em>reliable</em> ways to annotate genomic regions to genes is <strong>through experimental techniques</strong> that directly measure interactions or associations between genomic elements and genes. <strong>Chromosome Conformation Capture</strong> (3C) techniques, in particular, can capture physical interactions between distant genomic regions, helping to identify enhancer-promoter interactions and other long-range interactions.</p>
+<blockquote class="blockquote">
+<p>Annotating genomic regions to genes is a complex task that often requires a combination of experimental data and statistical analysis to establish associations.</p>
+</blockquote>
+<p>However, it might be not easy in some cases to retrieve experimental data to annotate genomic regions to genes. In that cases, the best strategy is to associate these regions to <strong>nearby genes</strong>. The annotation by <strong>TSS proximity</strong> is an approximation of the reality, but nevertheless is a good starting point for subsequent interpretations of the functional implications derived by the annotation.</p>
+<blockquote class="blockquote">
+<p>For instance, researchers may investigate how regulatory elements affect gene expression, how genetic variants within regulatory regions impact gene function, or how mutations in coding regions lead to changes in protein structure or function.</p>
+</blockquote>
+<section id="enhancer-distribution-across-known-genomic-features" class="level3">
+<h3 class="anchored" data-anchor-id="enhancer-distribution-across-known-genomic-features">Enhancer distribution across known genomic features</h3>
+<p>In our case, the annotation to nearby TSS has been already performed using an external tool called <code>Homer</code>, which allows not only to associate regions to genes, but also to <strong>annotate their genomic position with respect to relevant genomic features</strong>, like introns, exons, promoter-TSS regions, etc.</p>
+<p>We will now check how our upregulated enhancers in tumor organoids are distributed across these genomic features, by plotting another pie chart.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset regions upregulated in chr12</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df_anno <span class="ot">&lt;-</span> tumor_up_res <span class="sc">%&gt;%</span> <span class="fu">subset</span>(PeakID <span class="sc">%in%</span> up_regions) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(annotation) <span class="sc">%&gt;%</span> <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(annotation<span class="sc">!=</span><span class="st">'NA'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fraction =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>     <span class="co"># Compute percentages</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ymax=</span><span class="fu">cumsum</span>(fraction)) <span class="sc">%&gt;%</span>   <span class="co"># Compute the cumulative percentages (top of each rectangle)</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ymin=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">head</span>(ymax, <span class="at">n=</span><span class="sc">-</span><span class="dv">1</span>))) <span class="co"># Compute the bottom of each rectangle</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the plot</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>anno_rect <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_anno, <span class="fu">aes</span>(<span class="at">ymax=</span>ymax, <span class="at">ymin=</span>ymin, <span class="at">xmax=</span><span class="dv">4</span>, <span class="at">xmin=</span><span class="dv">3</span>, <span class="at">fill=</span>annotation)) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>() <span class="sc">+</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="at">theta=</span><span class="st">"y"</span>) <span class="sc">+</span> <span class="co"># Try to remove that to understand how the chart is built initially</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>)) <span class="sc">+</span> <span class="co"># Try to remove that to see how to make a pie chart</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette=</span><span class="dv">4</span>) <span class="sc">+</span> </span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Print plot</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>anno_rect</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Day3_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Answer to this question: at the level of which genomic regions we can find the majority of our enhancer regions?</p>
+</blockquote>
+</section>
+</section>
+<section id="gene-ontology-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="gene-ontology-analysis">Gene Ontology Analysis</h2>
+<p>Now that we have the enhancers annotated to known human genes, we could perform a plethora of analyses in order to get other <strong>biological insights related to gene regulation</strong>. One of these is the Gene Ontology Enrichment analysis. We will try to get a more <em>unsupervised</em> look at what kind of biology is happening inside the PDOs and, indirectly, in colorectal cancer cells. We will do this usin the <code>gProfiler</code> package in <code>R</code>.</p>
+<blockquote class="blockquote">
+<p><strong>Gene Ontology</strong> is a standardized system for <strong>annotating genes with terms</strong> describing their biological attributes. These terms are organized into three main categories: <strong>Molecular Function</strong> (the biochemical activity of the gene product), <strong>Biological Process</strong> (the broader biological objectives the gene contributes to), and <strong>Cellular Component</strong> (the location where the gene product is active).</p>
+</blockquote>
+<p>The <em>enrichment</em> is evaluated in this way: a list of genes is compared against a background set of genes (e.g., all genes in the genome) to identify GO terms that are <strong>significantly overrepresented in the list of interest</strong>.</p>
+<blockquote class="blockquote">
+<p>Statistical tests, such as Fisher’s exact test or hypergeometric test, are commonly used to determine whether the observed number of genes associated with a particular GO term in the gene list is significantly higher than expected by chance.</p>
+</blockquote>
+<p>The output of GO enrichment analysis includes a list of significantly enriched GO terms along with statistical metrics, such as p-values or false discovery rates (FDR).</p>
+<blockquote class="blockquote">
+<p>This information helps to prioritize genes for further study and provides further context to the experimental results!</p>
+</blockquote>
+<p>Now let’s do this in practice!</p>
+<p>First of all, we will <strong>create a custom function</strong> that takes as input a list of genes and automatically run the <code>gProfiler</code> function responsible for calulating the enrichment and also creating two plots: one that generally describes the categories of enriched terms, and another one more specific for <strong>enriched pathways from KEGG</strong> (aka, <em>Kyoto Encyclopedia of Genes and Genomes</em>).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Result data.frames will be stored in this object </span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>gprof <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#genes: provide a character vector with gene names</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#geneListName: a character identifying the list of genes that will be used to name the data.frame stored in res and to create the pdf</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>gprofiler <span class="ot">&lt;-</span> <span class="cf">function</span>(genes, geneListName) {</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Parameters you might want to change:</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#ordered_query: if the gene list provideed is ranked </span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#evcodes: if you want to have the gene ids that intersect between the query and the term</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#custom_bg: the gene universe used as a background</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  gostres <span class="ot">&lt;-</span> <span class="fu">gost</span>(<span class="at">query =</span><span class="fu">unique</span>(<span class="fu">as.character</span>(genes)), </span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">organism =</span> <span class="st">"hsapiens"</span>, <span class="at">ordered_query =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">multi_query =</span> <span class="cn">FALSE</span>, <span class="at">significant =</span> <span class="cn">TRUE</span>, <span class="at">exclude_iea =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>                  <span class="at">measure_underrepresentation =</span> <span class="cn">FALSE</span>, <span class="at">evcodes =</span> <span class="cn">TRUE</span> , </span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>                  <span class="at">user_threshold =</span> <span class="fl">0.05</span>, <span class="at">correction_method =</span> <span class="st">"g_SCS"</span>, </span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>                  <span class="at">domain_scope =</span> <span class="st">"annotated"</span>, <span class="at">custom_bg =</span> <span class="cn">NULL</span>, </span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>                  <span class="at">numeric_ns =</span> <span class="st">""</span>, <span class="at">sources =</span> <span class="cn">NULL</span>, <span class="at">as_short_link =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create the overview plot (not interactive)</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>  gostplot <span class="ot">&lt;-</span> <span class="fu">gostplot</span>(gostres, <span class="at">capped =</span> <span class="cn">TRUE</span>, <span class="at">interactive =</span> F)</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Keep only useful columns</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>  gp_mod <span class="ot">&lt;-</span> gostres<span class="sc">$</span>result[,<span class="fu">c</span>(<span class="st">"query"</span>, <span class="st">"source"</span>, <span class="st">"term_id"</span>,</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"term_name"</span>, <span class="st">"p_value"</span>, <span class="st">"query_size"</span>, </span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"intersection_size"</span>, <span class="st">"term_size"</span>, </span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"effective_domain_size"</span>, <span class="st">"intersection"</span>)]</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>  gp_mod<span class="sc">$</span>query <span class="ot">&lt;-</span> geneListName</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate GeneRatio for the dotplot: number of genes intersecting the term/ total number of unique genes provided</span></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>  gp_mod<span class="sc">$</span>GeneRatio <span class="ot">&lt;-</span> gp_mod<span class="sc">$</span>intersection_size<span class="sc">/</span>gp_mod<span class="sc">$</span>query_size</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Number of genes within the term / number of all unique genes across all terms (universe)</span></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>  gp_mod<span class="sc">$</span>BgRatio <span class="ot">&lt;-</span> <span class="fu">paste0</span>(gp_mod<span class="sc">$</span>term_size, <span class="st">"/"</span>, gp_mod<span class="sc">$</span>effective_domain_size)</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Rename columns</span></span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(gp_mod) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Cluster"</span>, <span class="st">"Category"</span>, <span class="st">"ID"</span>, <span class="st">"Description"</span>, <span class="st">"p.adjust"</span>, <span class="st">"query_size"</span>, <span class="st">"Intersection_size"</span>, <span class="st">"term_size"</span>, <span class="st">"effective_domain_size"</span>, <span class="st">"intersection"</span>, <span class="st">"GeneRatio"</span>, <span class="st">"BgRatio"</span>)</span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Save the results data.frame in res</span></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>  gprof[[geneListName]] <span class="ot">&lt;&lt;-</span> gp_mod</span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove possible duplicate terms for plotting</span></span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>  omit_ids <span class="ot">&lt;-</span> gp_mod[<span class="fu">duplicated</span>(gp_mod<span class="sc">$</span>Description), ]</span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>  omit_ids_list <span class="ot">&lt;-</span> omit_ids<span class="sc">$</span>Description</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>  gp_mod <span class="ot">&lt;-</span> gp_mod[<span class="sc">!</span>gp_mod<span class="sc">$</span>Description <span class="sc">%in%</span> omit_ids_list,]</span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a>  go_table_pathways <span class="ot">&lt;-</span> <span class="fu">filter</span>(gp_mod, Category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'KEGG'</span>))</span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate negLog P-Value and rank terms based on this value  </span></span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a>  go_table_pathways<span class="sc">$</span>negLogPval<span class="ot">=</span><span class="sc">-</span><span class="fu">log10</span>(go_table_pathways<span class="sc">$</span>p.adjust)</span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a>  go_table_pathways <span class="ot">&lt;-</span> go_table_pathways[<span class="fu">order</span>(<span class="sc">-</span>go_table_pathways<span class="sc">$</span>negLogPval),]</span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make dot plot</span></span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a>  dotPlot <span class="ot">&lt;-</span> <span class="fu">arrange</span>(go_table_pathways, negLogPval) <span class="sc">%&gt;%</span></span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Description =</span> <span class="fu">factor</span>(.<span class="sc">$</span>Description, <span class="at">levels =</span> .<span class="sc">$</span>Description)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(negLogPval, Description)) <span class="sc">+</span></span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> negLogPval, <span class="at">size =</span> GeneRatio))<span class="sc">+</span></span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">9</span>)) <span class="sc">+</span></span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_gradient</span>(<span class="at">low=</span><span class="st">"blue"</span>, <span class="at">high=</span><span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_light</span>()<span class="sc">+</span></span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">'Pathway'</span>)<span class="sc">+</span></span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.y=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>),</span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>),</span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">'bold'</span>))</span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Print on display</span></span>
+<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(<span class="fu">list</span>(gostplot, dotPlot))</span>
+<span id="cb21-71"><a href="#cb21-71" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, let’s extract a <em>vector</em> of genes associated to the most recurrent regulatory enhancers up-regulated in tumor samples, and perform the analysis:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract regions with high recurrence (from all chromosomes)</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>all_enh_recur <span class="ot">&lt;-</span> tumor_up_res <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(padj <span class="sc">&lt;</span> <span class="fl">0.05</span> <span class="sc">&amp;</span> log2FoldChange <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> Called_Korg <span class="sc">&gt;=</span><span class="dv">8</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract corresponding genes</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>genes_up_recur <span class="ot">&lt;-</span> all_enh_recur <span class="sc">%&gt;%</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Gene.Name)) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Gene.Name) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can check the number of genes that we have retrieved. We’ll relate this to the number of regions we start with.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"Number of recurrent enhancers:"</span>, <span class="fu">length</span>(all_enh_recur<span class="sc">$</span>PeakID))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Number of recurrent enhancers: 687"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"Number of genes associated to the recurrent enhancers:"</span>, <span class="fu">length</span>(genes_up_recur))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Number of genes associated to the recurrent enhancers: 582"</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>💡 Can you make a consideration about the differences between the number of regions and the number of corresponding genes?</p>
+</blockquote>
+<p>We can now run the function created above to obtain our enriched biological pathways.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load package</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gprofiler2)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run custom function</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gprofiler</span>(<span class="at">genes =</span> genes_up_recur, <span class="at">geneListName =</span> <span class="st">'genes_up_recur'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Day3_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[2]]</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Day3_files/figure-html/unnamed-chunk-28-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here, interestingly, we find that the two most enriched biological pathways are “colorectal cancer” and “Hippo signalling pathway”.</p>
+<p>From this insight we can start to <strong>generate new hypotheses</strong>, like the one tested in the study about the relevance of YAP/TAZ factors, which are indeed key downstream effectors of the Hippo signalling.</p>
+<blockquote class="blockquote">
+<p>💡 GO analyses might highlight very interesting patterns and generate hypotheses, but are many times quite hard to interpret depending also on the biological system we are studying.</p>
+</blockquote>
+</section>
+<section id="take-home-messages" class="level2">
+<h2 class="anchored" data-anchor-id="take-home-messages">Take-home Messages 🏠</h2>
+<p><strong>Congratulations!</strong> You got the end of the course and now hopefully know some crucial aspects of a ChIP-seq analysis workflow! Some of the key concepts that we have explored during the course can enable us to reach some distilled points of interest:</p>
+<ul>
+<li><p>Design your experiments carefully with data analysis in mind!</p></li>
+<li><p>Data needs to be carefully explored to avoid systematic errors in the analyses!</p></li>
+<li><p>Plot and Visualize as much as possible!</p></li>
+<li><p>Not all information is useful, remember that it all depends on the biological question!</p></li>
+<li><p>Omics outputs are immensely rich and one experiment can be used to answer a plethora of questions!</p></li>
+</ul>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
